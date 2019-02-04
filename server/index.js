@@ -20,6 +20,9 @@ app.use(session({
     cookie: {maxAge: 1000 * 60 * 60 * 24 * 7 * 2}
 }));
 
+app.get('/auth/callback', authController.login);
+app.get('/auth/user-data', authController.getUser);
+app.post('/auth/logout', authController.logout);
 
 const PORT = 4000;
 app.listen(PORT, () => {
