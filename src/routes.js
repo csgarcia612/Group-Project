@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
-
+import React from 'react';
 import Home from "./components/home_page/home";
 import SearchResultsPage from "./components/search_results_page/search_results";
 import EventPage from "./components/event_details_page/event_details";
