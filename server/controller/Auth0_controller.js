@@ -55,11 +55,11 @@ module.exports = {
 					return db
 						.create_user([
 							user.sub,
-							user.username,
+							user.nickname,
 							splitName[0],
 							splitName[1],
 							user.email,
-							user.image_url
+							user.picture
 						])
 						.then(newlyCreateUser => {
 							req.session.user = newlyCreateUser[0];
