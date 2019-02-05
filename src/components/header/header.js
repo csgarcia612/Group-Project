@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import { setUser } from "./";
+import { setUser } from "../../dux/reducer";
 import "./header.scss";
 
 class Header extends Component {
@@ -11,24 +11,27 @@ class Header extends Component {
 		this.state = {
 			showMenu: false
 		};
+		this.login = this.login.bind(this);
 	}
 
 	componentDidMount() {
 		axios.get("/api/user-data").then(res => {
-			// console.log("res", res)
+			console.log("res", res);
 			this.props.setUser(res.data.user);
 		});
 	}
 
-	login = () => {
-		let redirectUri = encodeURIComponent(window.location.origin + "/callback");
+	login() {
+		let redirectUri = encodeURIComponent(
+			window.location.origin + "/auth/callback"
+		);
 		window.location = `https://${
 			process.env.REACT_APP_AUTH0_DOMAIN
 		}/authorize?client_id=${
 			process.env.REACT_APP_AUTH0_CLIENT_ID
 		}&scope=openid%20profile%20email&redirect_uri=${redirectUri}&response_type=code`;
-		// console.log("redirectUri", redirectUri);
-	};
+		console.log("redirectUri", redirectUri);
+	}
 
 	logout = () => {
 		axios.post("/api/logout").then(res => {
