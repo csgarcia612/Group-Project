@@ -1,21 +1,31 @@
-const express = require("express"),
+const express = require('express'),
 	bodyParser = require("body-parser"),
 	session = require("express-session"),
 	massive = require("massive"),
 	app = express(),
 	RedisStore = require("connect-redis")(session),
 	authController = require("./controller/Auth0_controller"),
-	dotenv = require("dotenv");
+	dotenv = require("dotenv"),
+	cors = require("cors"),
+	graphqlHTTP = require('express-graphql'),
+	gqlConfigs = require('./graphql/graphqlConfigs');
 dotenv.config();
 
 app.use(bodyParser.json());
 
 massive(process.env.CONNECTION_STRING)
 	.then(db => {
-		app.set("db", db);
+		// app.set("db", db);
+		exports.database = db
+		console.log('COnnected to database!')
 	})
 	.catch(error => console.log(("error in connecting to db", error)));
-
+	app.use(cors())
+	app.use('/graphiql', graphqlHTTP({
+		schema: gqlConfigs.schema,
+		rootValue: gqlConfigs.root,
+		graphiql: true  
+	}))
 app.use(
 	session({
 		store: new RedisStore({ url: process.env.REDIS_URI }),

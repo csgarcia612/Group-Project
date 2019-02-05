@@ -1,4 +1,5 @@
-const axios = require("axios");
+const axios = require("axios"),
+	index = require('../index');	
 
 module.exports = {
 	login: (req, res) => {
@@ -35,8 +36,10 @@ module.exports = {
 		function storeUserInfo(response) {
 			console.log("user info", response.data);
 			const user = response.data;
-			const db = req.app.get("db");
+			const db = index.database;
 			return db.get_user([user.sub]).then(newUser => {
+				console.log('testing',user);
+				
 				if (newUser.length) {
 					req.session.user = {
 						auth0_id: newUser[0].auth0_id,
@@ -44,7 +47,8 @@ module.exports = {
 						first_name: newUser[0].first_name,
 						last_name: newUser[0].last_name,
 						email: newUser[0].email,
-						image_url: newUser[0].image_url
+						image_url: newUser[0].image_url,
+						address: newUser[0].address
 					};
 					res.redirect("/");
 				} else {

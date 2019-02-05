@@ -5,14 +5,14 @@ username varchar(30),
 first_name varchar(50),
 last_name varchar(50),
 email text,
-image_url text
+image_url text,
+address text reference addresses(address_id)
 );
 
 create table if not exists addresses (
 address_id serial primary key,
-user_id text,
 address_one text,
-address_two text,
+address_two te
 city text,
 state varchar(2),
 zipcode integer
