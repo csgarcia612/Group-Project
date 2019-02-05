@@ -50,22 +50,15 @@ class Header extends Component {
 		const { user } = this.props;
 		return (
 			<div className="header-container">
-				<div className="name-logo-container">
-					<div className="logo-container">
-						<img />
-					</div>
-					<div>
-						<p />
-					</div>
-				</div>
-				<div className="menu-button-container">
+				<div className="header-logo-container">LOGO IMAGE GOES HERE</div>
+				<div className="menu-container">
 					<button className="display-menu-button" onClick={this.toggleMenu}>
 						Menu
 					</button>
 				</div>
 				<div
 					className={
-						this.showMenu ? "show-menu-container" : "hide-menu-container"
+						this.state.showMenu ? "show-menu-container" : "hide-menu-container"
 					}
 				>
 					{user ? (

@@ -1,0 +1,30 @@
+.footer-container {
+	display: flex;
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	right: 0;
+	justify-content: space-between;
+	align-items: center;
+	height: 35px;
+	background-color: rgb(94, 23, 66);
+	box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
+		#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
+
+	.footer-name-container {
+		display: flex;
+		flex-direction: row;
+		color: rgb(246, 206, 143);
+
+		.footer-name {
+			font-size: 20px;
+			margin: 5px;
+		}
+	}
+
+	.social-media-icon {
+		height: 35px;
+		width: auto;
+		margin: 5px;
+	}
+}

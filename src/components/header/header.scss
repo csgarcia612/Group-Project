@@ -1,0 +1,27 @@
+.header-container {
+	display: flex;
+	position: fixed;
+	top: 10px;
+	left: 0;
+	right: 0;
+	justify-content: space-between;
+	align-items: center;
+	height: 35px;
+	background-color: rgb(94, 23, 66);
+	box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
+		#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
+
+	.header-logo-container {
+		display: flex;
+		flex-direction: row;
+		color: rgb(246, 206, 143);
+	}
+
+	.show-menu-container {
+		display: flex;
+	}
+
+	.hide-menu-container {
+		display: none;
+	}
+}
