@@ -11,6 +11,11 @@ class search_results extends Component {
 
         }
     }
+
+    handleUserInput = (e) => {
+        console.log(e.target.value)
+    }
+
     render() {
     const eventsList = this.props.events && this.props.events._embedded.events.map(e => {
         return <p key={e.id}>{e.name}</p>
@@ -18,16 +23,35 @@ class search_results extends Component {
     return (
         <div className="search-results-container">
             <div className="filters">
-                <input type='date'/>
-                <input type='number'/>
-                <select>
+                <input
+                    name='startDate' 
+                    type='date'
+                    onChange={e => this.handleUserInput(e)}
+                />
+                <input 
+                    name='endDate' 
+                    type='date' 
+                    onChange={e => this.handleUserInput(e)}
+                />
+                <input 
+                    type='number' 
+                    name='radius' 
+                    min='10' 
+                    max='100' 
+                    step='10' 
+                    placeholder='50' 
+                    onChange={e => this.handleUserInput(e)}
+                />
+                <select onChange={e => this.handleUserInput(e)} >
                     <option value='genre1'>Pop</option>
                     <option value='genre2'>Rock</option>
                     <option value='genre3'>Jazz</option>
                     <option value='genre4'>Blues</option>
                 </select>
-                <input type='number'/>
-
+                <input 
+                    type='number' 
+                    onChange={e => this.handleUserInput(e)}
+                />
             </div>
             <div className="events-list">
                 {eventsList}
