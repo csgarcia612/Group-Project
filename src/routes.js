@@ -9,9 +9,9 @@ import About from "./components/about_page/about";
 export default (
 	<Switch>
 		<Route exact path="/" component={Home} />
+        <Route path='/profile' component={UserProfile}/>
 		{/* <Route path='/search' component={SearchResultsPage}/>
         <Route path='/event' component={EventPage}/>
-        <Route path='/profile' component={UserProfile}/>
         <Route path='/about' component={About}/> */}
 	</Switch>
 );

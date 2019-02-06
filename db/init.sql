@@ -6,13 +6,13 @@ first_name varchar(50),
 last_name varchar(50),
 email text,
 image_url text,
-address text reference addresses(address_id)
 );
 
 create table if not exists addresses (
 address_id serial primary key,
+user_id interger reference users(user_id),
 address_one text,
-address_two te
+address_two text,
 city text,
 state varchar(2),
 zipcode integer

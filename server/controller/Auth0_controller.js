@@ -47,8 +47,8 @@ module.exports = {
 						first_name: newUser[0].first_name,
 						last_name: newUser[0].last_name,
 						email: newUser[0].email,
-						image_url: newUser[0].image_url,
-						address: newUser[0].address
+						image_url: newUser[0].image_url
+					
 					};
 					res.redirect("/");
 				} else {
