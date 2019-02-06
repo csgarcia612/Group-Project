@@ -12,9 +12,13 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<Header />
-				{routes}
-				<Footer />
+				<header>
+					<Header />
+				</header>
+				<div className="site-contents-container">
+					{routes}
+					<Footer />
+				</div>
 			</div>
 		);
 	}
