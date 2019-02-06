@@ -28,9 +28,9 @@ export function setUser(user) {
 }
 
 export function setEvents(events) {
-	console.log("setEvents in reducer", events._embedded.events)
+	console.log("setEvents in reducer", events._embedded.events);
 	return {
 		type: SET_EVENTS,
-		payload: events._embedded.events
-	}
+		payload: events
+	};
 }
