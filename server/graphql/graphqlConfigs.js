@@ -25,7 +25,6 @@ module.exports = {
             city: String
             state: String
             zipcode: Int
-            order: Orders
         }
 
         type Orders {
@@ -56,10 +55,10 @@ module.exports = {
     ),
 
     root: {
-        user: async ({id}) => {
+        user: async ({users_id}) => {
             try{
                 const db = index.database;
-                const user = await db.get_user([id]).then(response => response[0])
+                const user = await db.get_user([users_id]).then(response => response[0])
                 console.log('-----', user)
                 user.address = {
                         address_one: user.address_one,

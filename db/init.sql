@@ -1,6 +1,6 @@
 create table if not exists users (
 user_id serial primary key,
-auth0_id varchar not null,
+auth0_id text not null,
 username varchar(30),
 first_name varchar(50),
 last_name varchar(50),
@@ -10,7 +10,7 @@ image_url text,
 
 create table if not exists addresses (
 address_id serial primary key,
-user_id interger reference users(user_id),
+user_id integer reference users(user_id),
 address_one text,
 address_two text,
 city text,

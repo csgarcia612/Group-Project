@@ -38,7 +38,7 @@ module.exports = {
 			const user = response.data;
 			const db = index.database;
 			return db.get_user([user.sub]).then(newUser => {
-				console.log('testing',user);
+				console.log('testing',user.sub);
 				
 				if (newUser.length) {
 					req.session.user = {
@@ -63,7 +63,7 @@ module.exports = {
 							splitName[0],
 							splitName[1],
 							user.email,
-							user.picture
+							user.image_url
 						])
 						.then(newlyCreateUser => {
 							req.session.user = newlyCreateUser[0];
