@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './home.scss';
 import { connect } from 'react-redux';
-import { setEvents } from '../../dux/reducer';
+import { setEvents, setCity } from '../../dux/reducer';
 import { NavLink } from 'react-router-dom';
 
 class home extends Component {
@@ -47,8 +47,10 @@ class home extends Component {
   }
 
   searchEvents = (e) => {
-    let city = e.city;
-    axios.get(`https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&city=${city}&sort=date,desc&classificationName=[music]&unit=miles`).then( response => {
+    let baseSearch = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&sort=date,desc&classificationName=[music]&unit=miles`
+    let customSearch = baseSearch + '&city=' + e.city;
+    this.props.setCity(e.city);
+    axios.get(customSearch).then( response => {
       console.log('response.data in home before setting redux state', response.data)
       this.props.setEvents(response.data);
     })
@@ -86,6 +88,6 @@ class home extends Component {
 //   }
 // }
 let _
-export default connect(_, { setEvents })(home)
+export default connect(_, { setEvents, setCity })(home)
 
 
