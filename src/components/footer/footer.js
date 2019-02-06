@@ -18,16 +18,32 @@ class Footer extends Component {
 				</div>
 				<div className="social-icons-container">
 					<a href="https://www.facebook.com/">
-						<img className="social-media-icon" src="./images/facebook.png" />
+						<img
+							className="social-media-icon"
+							src="./images/facebook.png"
+							alt="Facebook Icon"
+						/>
 					</a>
 					<a href="https://twitter.com/">
-						<img className="social-media-icon" src="./images/twitter.png" />
+						<img
+							className="social-media-icon"
+							src="./images/twitter.png"
+							alt="Twitter Icon"
+						/>
 					</a>
 					<a href="https://www.instagram.com/">
-						<img className="social-media-icon" src="./images/instagram.png" />
+						<img
+							className="social-media-icon"
+							src="./images/instagram.png"
+							alt="Instagram Icon"
+						/>
 					</a>
 					<a href="https://www.youtube.com/">
-						<img className="social-media-icon" src="./images/youtube.png" />
+						<img
+							className="social-media-icon"
+							src="./images/youtube.png"
+							alt="YouTube Icon"
+						/>
 					</a>
 				</div>
 			</div>

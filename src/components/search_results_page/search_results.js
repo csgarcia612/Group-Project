@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class search_results extends Component {
     constructor(props){
@@ -62,10 +62,10 @@ class search_results extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        events: state.events,
-        city: state.city
-    }
-}
+	return {
+		events: state.events,
+		city: state.city
+	};
+};
 
 export default connect(mapStateToProps)(search_results);
