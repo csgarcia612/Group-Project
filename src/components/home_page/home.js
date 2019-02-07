@@ -55,7 +55,7 @@ class home extends Component {
     let customSearch = baseSearch + '&city=' + e.city;
     this.props.setCity(e.city);
     axios.get(customSearch).then( response => {
-      console.log('response.data in home before setting redux state', response.data)
+      console.log('response.data in home before setting redux state', response.data) 
       this.props.setEvents(response.data);
     })
   }
