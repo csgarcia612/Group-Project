@@ -43,7 +43,7 @@ module.exports = {
 
         type Query {
             users: [Users]
-            user(id: ID!): Users
+            user(auth0_id: String): Users
             allAddresses: [Addresses]
             addresses(id: ID!): Addresses
             allOrders: [Orders]
@@ -51,15 +51,40 @@ module.exports = {
             allLineItems: [LineItems]
             lineItems(id: ID!): LineItems
         }
+
+        type Mutation {
+            userUpdate(input: updateUser!): Users
+            addressUpdate(input: updateAddress!): Addresses
+            
+        }
+
+        input updateUser {
+            user_id: ID
+            username: String!
+            first_name: String!
+            last_name: String!
+            email: String!
+            image_url: String!
+        }
+
+        input updateAddress {
+            address_id: ID
+            address_one: String!
+            address_two: String!
+            city: String!
+            state: String!
+            zipcode: Int!
+        }
         `
     ),
 
     root: {
-        user: async ({users_id}) => {
+        user: async ({auth0_id}) => {
             try{
                 const db = index.database;
-                const user = await db.get_user([users_id]).then(response => response[0])
-                console.log('-----', user)
+                // console.log('==========', user_id)
+                const user = await db.get_user_profile([auth0_id]).then(response => response[0])
+                // console.log('-----', user)
                 user.address = {
                         address_one: user.address_one,
                         address_two: user.address_two,
@@ -75,19 +100,57 @@ module.exports = {
                 throw new Error(error.message)
             }
         },
+        userUpdate: async ({input: {user_id, username, first_name, last_name, email, image_url}}) => {
+            try{
+                const db = index.database
+                const user = await db.update_user({user_id, username, first_name, last_name, email, image_url}).then(response => response[0])
+                
+                    user.address = {
+                        address_one: user.address_one,
+                        address_two: user.address_two,
+                        city: user.address_city, 
+                        state: user.address_state,
+                        zipcode: user.address_zipcode
+                }
+                return user
+            
+            }catch(error){ 
+            console.log('error in submitProduct', error)
+            throw new Error(error.message)
+            }
+        },
 
-        // Users: async () => {
-        //     try{
-        //         const db = index.database
-        //         const products = await db.get_all_products().then(response => response)
-        //         products.forEach(products => products.category = {id: products.category_id, name: products.category_name, description: products.category_description}) // do this when you refer to another type that have an object in it
-        //         console.log('products', products) 
-        //         return products
-        //     }catch(error){ 
-        //         console.log('error in products', error)
-        //         throw new Error(error.message)
-        //     }
-        
-        // }, 
+        addressUpdate: async ({input: {address_id, address_one, address_two, city, state, zipcode}}) => {
+            try{
+                const db = index.database
+                if(address_id){const user = await db.update_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
+                console.log('address update user', user);
+                
+                    user.address = {
+                        address_one: user.address_one,
+                        address_two: user.address_two,
+                        city: user.address_city, 
+                        state: user.address_state,
+                        zipcode: user.address_zipcode
+                }
+                return user
+            }else {
+                const user = await db.create_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
+                
+                    user.address = {
+                        address_one: user.address_one,
+                        address_two: user.address_two,
+                        city: user.address_city, 
+                        state: user.address_state,
+                        zipcode: user.address_zipcode
+                }
+                return user
+            }
+            
+            }catch(error){ 
+            console.log('error in updateAddress', error)
+            throw new Error(error.message)
+            }
+        }
     }
 }

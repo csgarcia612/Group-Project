@@ -37,7 +37,7 @@ module.exports = {
 			console.log("user info", response.data);
 			const user = response.data;
 			const db = index.database;
-			return db.get_user([user.sub]).then(newUser => {
+			return db.get_user_auth0([user.sub]).then(newUser => {
 				console.log('testing',user.sub);
 				
 				if (newUser.length) {
