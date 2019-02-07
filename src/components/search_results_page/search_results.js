@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import "./search_results.scss";
 import { filter } from "graphql-anywhere";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 import { setEvents, setCity } from "../../dux/reducer";
 import SingleResult from "../single_search_result/single_result";
 
@@ -68,7 +69,17 @@ class search_results extends Component {
 		const eventsList =
 			this.props.events &&
 			this.props.events._embedded.events.map(e => {
-				return <SingleResult key={e.id} event={e} />;
+				console.log("e", e);
+				return (
+					<NavLink
+						to={`/event/${e.id}`}
+						key={e.id}
+						event={e}
+						className="event-details-navlink"
+					>
+						<SingleResult event={e} />
+					</NavLink>
+				);
 			});
 		console.log("state", this.state);
 		return (

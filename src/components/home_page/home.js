@@ -94,15 +94,12 @@ class home extends Component {
 		});
 		return (
 			<div className="home-container">
-				<div className="home-search-and-button">
-					<input
-						className="home-search-input"
-						onChange={e => this.handleSearch(e)}
-						value={this.state.searchQuery}
-						placeholder='Search events in your city...'
-					/>
-					<button>GO</button>
-				</div>
+				<img src="./images/music-tree5.png" />
+				<input
+					className="home-search-input"
+					onChange={e => this.handleSearch(e)}
+					value={this.state.searchQuery}
+				/>
 				<div className="dropdown-menu">
 					{filteredLocations ? searchDropDown : null}
 				</div>
