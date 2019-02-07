@@ -1,8 +1,21 @@
 .search-results-container {
-    .filters {
-        
-    }
-    .events-list {
+	display: flex;
+	position: relative;
+	bottom: 30px;
+	// justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	overflow: scroll;
 
-    }
+	.events-list {
+		display: flex;
+		position: relative;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		width: 100%;
+		height: 75%;
+	}
 }

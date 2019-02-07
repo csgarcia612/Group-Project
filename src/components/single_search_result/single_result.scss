@@ -1,0 +1,79 @@
+.mini-event-container {
+	display: flex;
+	position: initial;
+	// justify-content: center;
+	// align-items: center;
+	flex-direction: column;
+	width: 235px;
+	margin-top: 10px;
+	border-radius: 10px;
+
+	.mini-event-image-container {
+		display: flex;
+		position: relative;
+		justify-content: center;
+		// align-items: center;
+		width: 100%;
+		height: 100%;
+
+		.mini-event-image {
+			display: flex;
+			position: relative;
+			width: 100%;
+			height: 100%;
+			border-radius: 10px;
+		}
+
+		.mini-event-info-container {
+			display: flex;
+			position: absolute;
+			bottom: 0px;
+			flex-direction: row;
+			width: 235px;
+			height: 50px;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+			background-color: rgba(150, 117, 122, 0.9);
+
+			.mini-event-name-container {
+				display: flex;
+				position: absolute;
+				left: 0;
+				width: 75%;
+				flex-direction: column;
+				.mini-event-name {
+					display: flex;
+					font-size: 20px;
+					color: black;
+				}
+
+				.mini-venue-name {
+					display: flex;
+					font-size: 20px;
+					color: black;
+				}
+			}
+
+			.mini-event-date-container {
+				display: flex;
+				position: absolute;
+				right: 0;
+				width: 25%;
+				flex-direction: column;
+				align-items: center;
+
+				.mini-date-month {
+					display: flex;
+					font-size: 20px;
+					color: red;
+				}
+
+				.mini-date-day {
+					display: flex;
+					font-size: 20px;
+					color: red;
+				}
+			}
+		}
+	}
+}
