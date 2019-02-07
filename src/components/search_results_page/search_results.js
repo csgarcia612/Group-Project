@@ -4,6 +4,7 @@ import "./search_results.scss";
 import { filter } from "graphql-anywhere";
 import axios from "axios";
 import { setEvents, setCity } from "../../dux/reducer";
+import SingleResult from "../single_search_result/single_result";
 
 class search_results extends Component {
 	constructor() {
