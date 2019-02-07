@@ -2,13 +2,39 @@
 	display: flex;
 	position: relative;
 	bottom: 30px;
-	// justify-content: center;
-	align-items: center;
 	flex-direction: column;
-	height: 100%;
+	align-items: center;
 	width: 100%;
+	height: 100%;
 	overflow: scroll;
-
+	.filters {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgb(94, 23, 66);
+		box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
+			#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
+		width: 100%;
+		padding-top: 20px;
+		.filter-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			border: white solid 5px;
+			margin: 5px;
+			input,
+			select,
+			option {
+				background-color: transparent;
+				color: white;
+				border: none;
+				height: 70px;
+				width: 150px;
+			}
+		}
+	}
 	.events-list {
 		display: flex;
 		position: relative;
