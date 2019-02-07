@@ -7,14 +7,14 @@ import { setEvents, setCity } from "../../dux/reducer";
 import SingleResult from "../single_search_result/single_result";
 
 class search_results extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			city: null,
+			city: this.props.city,
 			startDateTime: null,
 			endDateTime: null,
-			radius: null,
-			genreId: null
+			radius: 50,
+			genreId: "KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF"
 		};
 	}
 
@@ -26,7 +26,7 @@ class search_results extends Component {
 	};
 
 	handleSearch = () => {
-		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]`;
+		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=100`;
 		let filterCriteria = {};
 		for (let key in this.state) {
 			console.log('each key in state', key)
@@ -48,25 +48,21 @@ class search_results extends Component {
 				this.props.setEvents(response.data)
 				this.state.city && this.props.setCity(this.state.city);
 			}
-			// if (response.data._embedded.events.length > 0) {
-			// 	this.props.setEvents(response.data);
-			// 	this.state.city && this.props.setCity(this.state.city);
-			// } else {
-			// 	console.log('set events null')
-			// 	this.props.setEvents(null);
-			// }
 		}).catch( error => {
 			console.log('---error in search', error)
 		})
 	};
 
 	render() {
+		const date = new Date;
+		
+		console.log('date',Date.now())
 		const initialState = {
-			city: null,
+			city: this.props.city,
 			startDateTime: null,
 			endDateTime: null,
-			radius: null,
-			genreId: null
+			radius: 50,
+			genreId: "KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF"
 		};
 		console.log('this.props on search results', this.props)
 		const eventsList =
@@ -79,7 +75,11 @@ class search_results extends Component {
 			<div className="search-results-container">
 				<div className="filters">
 					<div className="filter-container">
-						<input name="city" onChange={e => this.handleUserInput(e)} />
+						<input 
+							name="city" 
+							value={this.state.city}
+							onChange={e => this.handleUserInput(e)} 
+						/>
 					</div>
 					<div className="filter-container">
 						<h2>Start Date</h2>
@@ -105,7 +105,7 @@ class search_results extends Component {
 							min="10"
 							max="100"
 							step="10"
-							placeholder="50"
+							value={this.state.radius}
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
