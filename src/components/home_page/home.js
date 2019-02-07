@@ -94,6 +94,7 @@ class home extends Component {
 		});
 		return (
 			<div className="home-container">
+				<img src="./images/music-tree5.png" />
 				<input
 					className="home-search-input"
 					onChange={e => this.handleSearch(e)}
