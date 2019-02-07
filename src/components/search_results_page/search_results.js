@@ -29,24 +29,35 @@ class search_results extends Component {
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]`;
 		let filterCriteria = {};
 		for (let key in this.state) {
-			console.log("filterCriter[key]", this.state[key]);
+			console.log('each key in state', key)
+			console.log('each value of state key', this.state[key])
 			if (this.state[key]) {
 				searchQuery += `&${key}=${this.state[key]}`;
-				if (key == "startDateTime" || "endDateTime") {
+				if (key === 'startDateTime' || key === 'endDateTime' && this.state[key]) {
 					searchQuery += "T00:00:00Z";
 				}
 			}
+			console.log(searchQuery);
 		}
-		console.log(searchQuery);
+		// console.log(searchQuery);
 		axios.get(searchQuery).then(response => {
-			console.log(response);
-			if (response.length > 0) {
-				this.props.setEvents(response.data);
-				this.state.city && this.props.setCity(this.state.city);
+			console.log('response.data in searchquery response', response.data);
+			if(response.data.page.totalElements === 0){
+				this.props.setEvents(null)
 			} else {
-				this.props.setEvents(null);
+				this.props.setEvents(response.data)
+				this.state.city && this.props.setCity(this.state.city);
 			}
-		});
+			// if (response.data._embedded.events.length > 0) {
+			// 	this.props.setEvents(response.data);
+			// 	this.state.city && this.props.setCity(this.state.city);
+			// } else {
+			// 	console.log('set events null')
+			// 	this.props.setEvents(null);
+			// }
+		}).catch( error => {
+			console.log('---error in search', error)
+		})
 	};
 
 	render() {
@@ -57,6 +68,7 @@ class search_results extends Component {
 			radius: null,
 			genreId: null
 		};
+		console.log('this.props on search results', this.props)
 		const eventsList =
 			this.props.events &&
 			this.props.events._embedded.events.map(e => {
@@ -134,7 +146,7 @@ class search_results extends Component {
 					</div>
 				</div>
 				<div className="events-list">
-					{this.props.events ? eventsList : <h1>NOTHING TO SEE HERE LADDY</h1>}
+					{eventsList ? eventsList : <h1>NOTHING TO SEE HERE LADDY</h1>}
 				</div>
 			</div>
 		);

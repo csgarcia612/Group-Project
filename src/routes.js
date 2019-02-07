@@ -11,8 +11,8 @@ export default (
 		<Route exact path="/" component={Home} />
         <Route path='/profile' component={UserProfile}/>
 		<Route path='/about' component={About}/>
-		{/* <Route path='/search' component={SearchResultsPage}/>
-        <Route path='/event' component={EventPage}/>
-         */}
+		<Route path='/search' component={SearchResultsPage}/>
+        {/* <Route path='/event' component={EventPage}/> */}
+        
 	</Switch>
 );
