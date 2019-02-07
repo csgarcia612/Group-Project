@@ -1,7 +1,32 @@
+html {
+	width: 100vw;
+	height: 100vh;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	background-image: url("./images/audience-1850119_1920.jpg");
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+
 .App {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background-image: url('./images/audience-1850119_1920.jpg');
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	// align-items: center;
+	height: 100%;
+	width: 100%;
+
+	.site-contents-container {
+		display: flex;
+		justify-content: center;
+		position: relative;
+		width: 100vw;
+		height: calc(100vh - 55px);
+		margin-top: 50px;
+	}
 }
