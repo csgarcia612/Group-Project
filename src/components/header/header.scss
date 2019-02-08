@@ -12,10 +12,35 @@
 	box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
 		#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
 
-	.header-logo-container {
+	.header-homepage-navlink {
 		display: flex;
-		flex-direction: row;
-		color: rgb(246, 206, 143);
+		justify-content: space-evenly;
+		align-items: center;
+		text-decoration: none;
+
+		.header-logo-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			width: auto;
+			color: rgb(246, 206, 143);
+
+			.header-logo {
+				display: flex;
+				height: 35px;
+				width: auto;
+			}
+
+			.header-name {
+				display: flex;
+				font-size: 20px;
+				font-weight: bold;
+				font-family: sans-serif;
+				margin: 5px;
+			}
+		}
 	}
 
 	.show-menu-container {

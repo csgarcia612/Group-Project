@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../dux/reducer";
 import "./header.scss";
@@ -50,7 +50,12 @@ class Header extends Component {
 		const { user } = this.props;
 		return (
 			<div className="header-container">
-				<div className="header-logo-container">LOGO IMAGE GOES HERE</div>
+				<NavLink to={"/"} className="header-homepage-navlink">
+					<div className="header-logo-container">
+						<img className="header-logo" src="./images/music-tree5.png" />
+						<p className="header-name">MELODY-TREE</p>
+					</div>
+				</NavLink>
 				<div className="menu-container">
 					<button className="display-menu-button" onClick={this.toggleMenu}>
 						Menu
