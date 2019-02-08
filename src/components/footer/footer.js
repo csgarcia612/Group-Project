@@ -11,10 +11,10 @@ class Footer extends Component {
 		return (
 			<div className="footer-container">
 				<div className="footer-name-logo container">
-					<div className="footer-name-container">
+					{/* <div className="footer-name-container">
 						<p className="footer-name">WEBSITE NAME</p>
 						<p>&reg;</p>
-					</div>
+					</div> */}
 				</div>
 				<div className="social-icons-container">
 					<a href="https://www.facebook.com/">
