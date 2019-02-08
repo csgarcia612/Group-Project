@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./single_result.scss";
 
-class Single_Result extends Component {
+class SingleResult extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -16,18 +16,18 @@ class Single_Result extends Component {
 		let splitDate = event.dates.start.localDate.split("-");
 		let monthAbrvs = [
 			null,
-			"Jan",
-			"Feb",
-			"Mar",
-			"Apr",
-			"May",
-			"Jun",
-			"Jul",
-			"Aug",
-			"Sep",
-			"Oct",
-			"Nov",
-			"Dec"
+			"JAN",
+			"FEB",
+			"MAR",
+			"APR",
+			"MAY",
+			"JUN",
+			"JUL",
+			"AUG",
+			"SEP",
+			"OCT",
+			"NOV",
+			"DEC"
 		];
 		return (
 			<div className="mini-event-container">
@@ -61,4 +61,4 @@ class Single_Result extends Component {
 	}
 }
 
-export default Single_Result;
+export default SingleResult;
