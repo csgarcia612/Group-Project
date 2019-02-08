@@ -4,6 +4,7 @@ import "./home.scss";
 import { connect } from "react-redux";
 import { setEvents, setCity } from "../../dux/reducer";
 import { NavLink } from "react-router-dom";
+import { removeDirectivesFromDocument } from "apollo-utilities";
 
 class home extends Component {
 	constructor() {
@@ -17,6 +18,13 @@ class home extends Component {
 
 	componentDidMount() {
 		this.getCities();
+	}
+	
+	onKeyDown = e => {
+		console.log('keydown event', e.key);
+		if(e.key == 'Enter'){
+			this.userInputSearch(e);
+		}
 	}
 
 	getCities = () => {
@@ -50,6 +58,19 @@ class home extends Component {
 		});
 	};
 
+	userInputSearch = e => {
+		let baseSearch = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&sort=date,asc&classificationName=[music]&unit=miles`;
+		let customSearch = baseSearch + "&city=" + e.target.value;
+		axios.get(customSearch).then(response => {
+			console.log(
+				"response.data in home before setting redux state",
+				response.data
+			);
+			this.props.setEvents(response.data);
+		});
+		this.props.history.push('/search');
+	}
+
 	searchEvents = e => {
 		let baseSearch = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&sort=date,asc&classificationName=[music]&unit=miles`;
 		let customSearch = baseSearch + "&city=" + e.city;
@@ -79,7 +100,10 @@ class home extends Component {
 		);
 	};
 
+	
+
 	render() {
+		
 		const { filteredLocations, locations, searchQuery } = this.state;
 		const searchDropDown = filteredLocations.map(e => {
 			return (
@@ -97,6 +121,7 @@ class home extends Component {
 				<img src="./images/music-tree5.png" />
 				<div className='search-box'>
 					<input
+						onKeyDown={e => this.onKeyDown(e)}
 						className="home-search-input"
 						onChange={e => this.handleSearch(e)}
 						value={this.state.searchQuery}
