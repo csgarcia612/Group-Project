@@ -51,7 +51,7 @@ class home extends Component {
 	};
 
 	searchEvents = e => {
-		let baseSearch = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&sort=date,desc&classificationName=[music]&unit=miles`;
+		let baseSearch = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&radius=50&sort=date,asc&classificationName=[music]&unit=miles`;
 		let customSearch = baseSearch + "&city=" + e.city;
 		this.props.setCity(e.city);
 		axios.get(customSearch).then(response => {
