@@ -9,6 +9,7 @@ query getUser($auth0_id: String) {
       email
       image_url
       address{
+        address_id
         address_one
         address_two
         city
@@ -20,7 +21,7 @@ query getUser($auth0_id: String) {
   }`
 
 export const NEW_ADDRESS = gql`
-  mutation updateAddress($input: updateAddress ){
+  mutation updateAddress($input: updateAddress! ){
     addressUpdate(input: $input){
       address_one
       address_two
@@ -31,7 +32,7 @@ export const NEW_ADDRESS = gql`
   }
 `
 export const DELETE_ADDRESS = gql`
-mutation deleteAddress($address_id: ID) {
+mutation deleteAddress($address_id: ID!) {
   deleteAddress(address_id: $address_id){
     address_id
   }

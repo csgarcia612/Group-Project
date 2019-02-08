@@ -42,6 +42,7 @@ module.exports = {
 				
 				if (newUser.length) {
 					req.session.user = {
+						user_id: newUser[0].user_id,
 						auth0_id: newUser[0].auth0_id,
 						username: newUser[0].username,
 						first_name: newUser[0].first_name,

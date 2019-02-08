@@ -69,6 +69,7 @@ module.exports = {
         }
 
         input updateAddress {
+            user_id: ID
             address_id: ID
             address_one: String!
             address_two: String!
@@ -89,6 +90,7 @@ module.exports = {
                 console.log('-----', user)
                 if(user){
                     user.address = {
+                        address_id: user.address_id,
                         address_one: user.address_one,
                         address_two: user.address_two,
                         city: user.address_city, 
@@ -130,11 +132,11 @@ module.exports = {
             }
         },
 
-        addressUpdate: async ({input: {address_id, address_one, address_two, city, state, zipcode}}) => {
+        addressUpdate: async ({input: {address_id, address_one, address_two, city, state, zipcode, user_id}}) => {
             try{
                 const db = index.database
-                if(address_id){const address = await db.update_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
-                console.log('address update user', address);
+                if(address_id){const address = await db.update_address({address_id, address_one, address_two, city, state, zipcode,user_id}).then(response => response[0])
+                console.log('address update address', address);
                 
                     address.user_id = {
                         username: address.username,
@@ -146,8 +148,8 @@ module.exports = {
                 }
                 return address
             }else {
-                const address = await db.create_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
-                console.log('address update user', address);
+                const address = await db.create_address({address_id, address_one, address_two, city, state, zipcode, user_id}).then(response => response[0])
+                console.log('add adress ', address);
                 address.user_id = {
                     username: address.username,
                     first_name: address.first_name,

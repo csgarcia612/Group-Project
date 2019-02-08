@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {GET_USER, DELETE_ADDRESS} from './graphqlController';
+import {GET_USER, DELETE_ADDRESS, NEW_ADDRESS} from './graphqlController';
 import {Query, Mutation} from 'react-apollo';
 import {connect} from 'react-redux';
 import {setUser} from '../../dux/reducer'
@@ -9,12 +9,13 @@ import {setUser} from '../../dux/reducer'
 class UserProfile extends Component{
     state = {
         users: [],
-        editing: false,
-        address_one: this.props.address_one,
-        address_two: this.props.address_two,
-        city: this.props.city,
-        state: this.props.state,
-        zipcode: this.props.zipcode
+        addressProperties: ['address_one', "address_two", "city", "state", "zipcode"],
+        editingState: false,
+        address_one: '',
+        address_two: '',
+        city: '',
+        state: '',
+        zipcode: 0
     }
 
     handleInput = (e) => {
@@ -24,18 +25,20 @@ class UserProfile extends Component{
     }
 
     render(){
-        const {editing} = this.state;
-        const {address_id, address_one, address_two, city, state, zipcode} = this.props;
+        const {editingState} = this.state;
+        let address_id 
 
 
         const userId = this.props.user && this.props.user.auth0_id
-        console.log('userID', userId);
+        // console.log('userID', this.props.user);
         
         const getUser = (auth0_id) => (<Query query={GET_USER} variables={{auth0_id}}>
+
             {({ loading, error, data }) => {
                 if(loading) return <h1>Loading data...</h1>
                 if(error) return <h1>Error!</h1>
                 console.log('data', data)
+                address_id = data.user.address ? +data.user.address.address_id : 0
                 return (
             
                     <>
@@ -68,45 +71,123 @@ class UserProfile extends Component{
                       
             
         return (
-            
+            this.props.user ? (
             <div className= 'user-profile-container'>
                 {getUser(userId)}
              <div className='address-info'>
-             {editing?
+             {editingState?
             <React.Fragment>
-                <input type='text' name='address_one' value={this.state.address_one} onChange={(e) => this.handleInput(e)}/>
-                <input type='text' name='address_two' value={this.state.address_two} onChange={(e) => this.handleInput(e)}/>
-                <input type='text' name='address_city' value={this.state.address_city} onChange={(e) => this.handleInput(e)}/>
-                <input type='text' name='address_state' value={this.state.address_state} onChange={(e) => this.handleInput(e)}/>
-                <input type='number' name='address_zipcode' value={this.state.address_zipcode} onChange={(e) => this.handleInput(e)}/>
+               <p>Address: <input type='text' name='address_one' value={this.state.address_one} onChange={(e) => this.handleInput(e)}></input></p>
+                <p>Address:<input type='text' name='address_two' value={this.state.address_two} onChange={(e) => this.handleInput(e)}/></p>
+                <p>City:<input type='text' name='city' value={this.state.city} onChange={(e) => this.handleInput(e)}/></p>
+                <p>State:<input type='text' name='state' value={this.state.state} onChange={(e) => this.handleInput(e)}/></p>
+                <p>Zipcode:<input name='zipcode' value={this.state.zipcode} onChange={(e) => this.handleInput(e)}/></p>
             </React.Fragment> 
             :
             <React.Fragment>
-                
+            
             </React.Fragment>
             }
              </div>
-             {!editing && 
+             {!editingState && 
                 <React.Fragment>
-                    <button onClick={() => this.setState({editing: true})}>Edit</button>
-                    <Mutation
-                        mutation={DELETE_ADDRESS}
-                        refetchQueries={[{query: GET_USER}]}>
-                            {(deleteAddress) => (
-                                <button onClick={() => {deleteAddress(
-                                    {variables: {address_id}}
-                                )
-                                }}>Delete</button>
-                            )}
-                                
-                                
-                    </Mutation>
+                    <button onClick={() => this.setState({editingState: 'add'})}>Add Address</button>
 
                 </React.Fragment>
+            }
+            {editingState === 'add' &&
+                <React.Fragment>
+                    <Mutation 
+                        mutation={NEW_ADDRESS}
+                        refetchQueries={[{query: GET_USER}]}
+                        onCompleted={() => this.setState({editingState: false} & window.location.replace('/profile'))}
+                        >
+                        {(addAddress, {loading, error}) => (
+                            // console.log('data', data)
+                            <div>
+                            <button 
+                            onClick={() => {
+                                addAddress({
+                                    variables: { 
+                                        input: {
+                                            user_id: this.props.user.user_id,
+                                            address_one: this.state.address_one,
+                                            address_two: this.state.address_two,
+                                            city: this.state.city,
+                                            state: this.state.state,
+                                            zipcode: (+this.state.zipcode)
+                                        }
+                                    }
+                                })
+                            }}>Submit</button>
+                            {loading && <h1>Loading data...</h1>}
+                            {error && <h1>Error!</h1>}
+                            </div>
+                        )}
+                        </Mutation>
+                        <button onClick={() => this.setState({editingState: false})}>Cancel</button>
+
+                </React.Fragment>
+
             }  
+            
+            {!editingState && 
+                <React.Fragment>
+                    <button onClick={() => this.setState({editingState: 'edit'})}>Edit Address</button>
+                    
+
+                </React.Fragment>
+            }   
+            {editingState === 'edit' &&
+                <React.Fragment>
+                    <Mutation 
+                        mutation={NEW_ADDRESS}
+                        refetchQueries={[{query: GET_USER}]}
+                        onCompleted={() => this.setState({editingState: false} & window.location.replace('/profile'))}
+                        >
+                        {(updateAddress, {loading, error}) => (
+                            <div>
+                            <button 
+                                onClick={() => {
+                                    updateAddress({
+                                        variables: { 
+                                            input: {
+                                                user_id: this.props.user.user_id,
+                                                address_id: address_id,
+                                                address_one: this.state.address_one,
+                                                address_two: this.state.address_two,
+                                                city: this.state.city,
+                                                state: this.state.state,
+                                                zipcode: (+this.state.zipcode)
+                                            }
+                                        }
+                                    })
+                                }}>Submit</button>
+                                {loading && <h1>Loading data...</h1>}
+                                {error && <h1>Error!</h1>}
+                            </div>
+                        )}
+                        </Mutation>
+                        <button onClick={() => this.setState({editingState: false})}>Cancel</button>
+
+                        <Mutation
+                            mutation={DELETE_ADDRESS}
+                            refetchQueries={[{query: GET_USER}]}
+                            onCompleted={() => this.setState({editingState: false} & window.location.replace('/profile'))}>
+                                {(deleteAddress) => (
+                                    <button onClick={() => {deleteAddress(
+                                        {variables: {address_id}}
+                                    )
+                                    }}>Delete</button>
+                                )}
+                                    
+                                    
+                        </Mutation>
+                </React.Fragment>
+            }
             </div>
-        )
-    }
+        ) : (<div>Please Login</div>))
+        }
 }
 const mapStateToProp = state => {
     return {
