@@ -1,19 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import "./event_details.scss";
 
 class EventDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			singleEvent: null
+			singleEvent: null,
+			ticketPrice: 0
 		};
 		this.getEvent = this.getEvent.bind(this);
+		this.getPrice = this.getPrice.bind(this);
 	}
 
 	componentDidMount() {
-		console.log("props", this.props);
+		// console.log("props", this.props);
 		this.getEvent();
+		this.getPrice();
 	}
 
 	getEvent() {
@@ -24,74 +28,101 @@ class EventDetails extends Component {
 				`https://app.ticketmaster.com/discovery/v2/events/${eventID}.json?apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3`
 			)
 			.then(res => {
-				console.log(res.data);
+				console.log("res.data", res.data);
 				this.setState({
 					singleEvent: res.data
 				});
 			});
 	}
 
+	getPrice() {
+		let randomPrice = Math.floor(Math.random() * (500 - 30) + 1);
+		this.setState({
+			ticketPrice: randomPrice
+		});
+	}
+
 	render() {
+		const { singleEvent, ticketPrice } = this.state;
 		let splitEventName =
-			this.state.singleEvent &&
-			this.state.singleEvent.name.split(
+			singleEvent &&
+			singleEvent.name.split(
 				", "
 				//  || "Plus" || "with Special Guest"
 			);
+
 		let mainArtistName =
-			this.state.singleEvent &&
-			(this.state.singleEvent && this.state.singleEvent._embedded.attractions
-				? this.state.singleEvent &&
-				  this.state.singleEvent._embedded.attractions[0].name
+			singleEvent &&
+			(singleEvent && singleEvent._embedded.attractions
+				? singleEvent && singleEvent._embedded.attractions[0].name
 				: splitEventName[0]);
+
 		let specialGuests =
-			// this.state.singleEvent &&
-			// this.state.singleEvent._embedded.attractions.length > 1 ?
-			this.state.singleEvent &&
-			(this.state.singleEvent._embedded.attractions &&
-			this.state.singleEvent._embedded.attractions.length > 1
+			// singleEvent &&
+			// singleEvent._embedded.attractions.length > 1 ?
+			singleEvent &&
+			(singleEvent._embedded.attractions &&
+			singleEvent._embedded.attractions.length > 1
 				? "WITH SPECIAL GUESTS"
 				: null);
 
+		let guestList =
+			singleEvent &&
+			singleEvent._embedded.attractions.map(artist => {
+				// console.log("artist", artist);
+				return (
+					<p key={artist.id} className="guest-artist">
+						{artist.name}
+					</p>
+				);
+			});
+
+		guestList && guestList.splice(0, 1);
+
 		return (
 			<div className="event-details-container">
-				{console.log("event", this.state.singleEvent)}
+				{console.log("singleEvent", singleEvent)}
 				<div className="event-details-image-container">
-					<img src={this.singleEvent && this.singleEvent.images[0].url} />
+					<img src={singleEvent && singleEvent.images[0].url} />
 				</div>
 				<div className="event-details-info-container">
 					<div className="event-venue-info-container">
-						<p className="event-name">
-							{this.singleEvent && this.singleEvent.name}
-						</p>
+						<p className="event-name">{singleEvent && singleEvent.name}</p>
 						<p className="venue-name">
-							{this.singleEvent && this.singleEvent._embedded.venues[0].name}
+							{singleEvent && singleEvent._embedded.venues[0].name}
 						</p>
 						<div className="venue-address-container">
 							<p className="venue-street-address">
-								{this.singleEvent &&
-									this.singleEvent._embedded.venues[0].address.line1}
+								{singleEvent && singleEvent._embedded.venues[0].address.line1}
 							</p>
-							<p className="venue-city">
-								{this.singleEvent &&
-									this.singleEvent._embedded.venues[0].city.name}
-							</p>
-							<p className="venue-state">
-								{this.singleEvent &&
-									this.singleEvent._embedded.venues[0].state.stateCode}
-							</p>
-							<p className="venue-zipcode">
-								{this.singleEvent &&
-									this.singleEvent._embedded.venues[0].postalCode}
+							<p className="venue-city-state-zip">
+								{`${singleEvent &&
+									singleEvent._embedded.venues[0].city.name}, ${singleEvent &&
+									singleEvent._embedded.venues[0].state
+										.stateCode} ${singleEvent &&
+									singleEvent._embedded.venues[0].postalCode}`}
 							</p>
 						</div>
 					</div>
 					<div className="event-artist-info-container">
 						<p className="artist-name">{mainArtistName}</p>
-						<p>{specialGuests}</p>
+						<div
+							className={
+								singleEvent &&
+								(singleEvent._embedded.attractions &&
+									singleEvent._embedded.attractions.length > 1)
+									? "show-special-guests"
+									: "hide-special-guests"
+							}
+						>
+							<p>{specialGuests}</p>
+							{guestList}
+						</div>
 					</div>
 				</div>
-				<div className="event-purchase-container" />
+				<div className="event-purchase-container">
+					<p>${ticketPrice}.00</p>
+				</div>
 			</div>
 		);
 	}
