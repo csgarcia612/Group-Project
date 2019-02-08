@@ -55,6 +55,7 @@ module.exports = {
         type Mutation {
             userUpdate(input: updateUser!): Users
             addressUpdate(input: updateAddress!): Addresses
+            deleteAddress(address_id: ID!): Addresses
             
         }
 
@@ -82,10 +83,12 @@ module.exports = {
         user: async ({auth0_id}) => {
             try{
                 const db = index.database;
+                
                 // console.log('==========', user_id)
                 const user = await db.get_user_profile([auth0_id]).then(response => response[0])
-                // console.log('-----', user)
-                user.address = {
+                console.log('-----', user)
+                if(user){
+                    user.address = {
                         address_one: user.address_one,
                         address_two: user.address_two,
                         city: user.address_city, 
@@ -95,6 +98,13 @@ module.exports = {
                     }
                 
                 return user
+                }else{
+                const user = await db.get_user_auth0([auth0_id]).then(response => response[0])
+
+                return user
+                }
+                
+                
             }catch(error ){ 
                 console.log('error in user', error)
                 throw new Error(error.message)
@@ -123,34 +133,48 @@ module.exports = {
         addressUpdate: async ({input: {address_id, address_one, address_two, city, state, zipcode}}) => {
             try{
                 const db = index.database
-                if(address_id){const user = await db.update_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
-                console.log('address update user', user);
+                if(address_id){const address = await db.update_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
+                console.log('address update user', address);
                 
-                    user.address = {
-                        address_one: user.address_one,
-                        address_two: user.address_two,
-                        city: user.address_city, 
-                        state: user.address_state,
-                        zipcode: user.address_zipcode
+                    address.user_id = {
+                        username: address.username,
+                        first_name: address.first_name,
+                        last_name: address.last_name,
+                        email: address.email,
+                        image_url: address.image_url
+                        
                 }
-                return user
+                return address
             }else {
-                const user = await db.create_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
-                
-                    user.address = {
-                        address_one: user.address_one,
-                        address_two: user.address_two,
-                        city: user.address_city, 
-                        state: user.address_state,
-                        zipcode: user.address_zipcode
-                }
-                return user
+                const address = await db.create_address({address_id, address_one, address_two, city, state, zipcode}).then(response => response[0])
+                console.log('address update user', address);
+                address.user_id = {
+                    username: address.username,
+                    first_name: address.first_name,
+                    last_name: address.last_name,
+                    email: address.email,
+                    image_url: address.image_url
+                    
+            }
+                return address
             }
             
             }catch(error){ 
             console.log('error in updateAddress', error)
             throw new Error(error.message)
             }
+        },
+        deleteAddress: async ({address_id}) => {
+            try {
+                const db = index.database
+                const deleteAdd = await db.delete_address([address_id])
+                return deleteAdd
+            }catch(error){ 
+                console.log('error in delete address', error)
+                throw new Error(error.message)
+            }
         }
+
+        
     }
 }

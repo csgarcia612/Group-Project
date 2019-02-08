@@ -7,6 +7,7 @@ state = ${state}
 where address_id = ${address_id};
 
 
-select u.user_id, u.auth0_id, u.username, u.first_name, u.last_name, u.email, u.image_url, a.address_one as address_one, a.address_two as address_two, a.city as address_city, a.state as address_state, a.zipcode as address_zipcode from users u 
-join addresses a on u.user_id = a.user_id
-where a.address_id = ${address_id}
+select a.address_id, a.user_id, a.address_one, a.address_two, a.city, a.state, a.zipcode, u.username as username, u.first_name as first_name, u.last_name as last_name,  u.email as email, u.image_url as image_url from addresses a 
+join users u on a.user_id = u.user_id 
+where a.address_id =${address_id}
+
