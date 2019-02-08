@@ -11,6 +11,7 @@ class search_results extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loading: true,
 			city: this.props.city,
 			startDateTime: null,
 			endDateTime: null,
@@ -27,7 +28,7 @@ class search_results extends Component {
 	};
 
 	handleSearch = () => {
-		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=100`;
+		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=20&sort=date,asc`;
 		let filterCriteria = {};
 		for (let key in this.state) {
 			console.log('each key in state', key)
@@ -87,6 +88,8 @@ class search_results extends Component {
 				<div className="filters">
 					<div className="filter-container">
 						<input 
+							type='text'
+							className='input-field'
 							name="city" 
 							value={this.state.city}
 							onChange={e => this.handleUserInput(e)} 
@@ -157,8 +160,9 @@ class search_results extends Component {
 					</div>
 				</div>
 				<div className="events-list">
-					{eventsList ? eventsList : <h1>NOTHING TO SEE HERE LADDY</h1>}
+					{eventsList ? eventsList : <h1>Search returned no results</h1>}
 				</div>
+				{/* <img className={this.state.loading ? 'loading' : 'loaded'} src='https://media.giphy.com/media/7FfMfPHQr9romeeKtk/giphy.gif' alt='loading'/> */}
 			</div>
 		);
 	}
