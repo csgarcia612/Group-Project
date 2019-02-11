@@ -13,5 +13,6 @@ export default (
 		<Route path="/about" component={About} />
 		<Route path="/search" component={SearchResultsPage} />
 		<Route path="/event/:id" component={EventDetails} />
+		
 	</Switch>
 );

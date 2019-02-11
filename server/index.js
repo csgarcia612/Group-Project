@@ -9,6 +9,7 @@ const express = require('express'),
 	cors = require("cors"),
 	graphqlHTTP = require('express-graphql'),
 	gqlConfigs = require('./graphql/graphqlConfigs');
+	nodemailer = require('../server/controller/nodeMailer_controller')
 dotenv.config();
 
 app.use(bodyParser.json());
