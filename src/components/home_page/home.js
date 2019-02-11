@@ -57,7 +57,8 @@ class home extends Component {
 			return e.city.match(searchFilter) || e.state.match(searchFilter);
 		});
 		this.setState({
-			filteredLocations
+			filteredLocations,
+			closestMatch: filteredLocations[0]
 		});
 	};
 
@@ -107,7 +108,7 @@ class home extends Component {
 	
 
 	render() {
-		
+		console.log('-----closest match', this.state.closestMatch		)
 		const { filteredLocations, locations, searchQuery } = this.state;
 		const searchDropDown = filteredLocations.map(e => {
 			return (
