@@ -1,12 +1,14 @@
 const INITIAL_STATE = {
 	user: null,
 	events: null,
-	city: null
+	city: null,
+	citiesList: null
 };
 
 const SET_USER = "SET_USER";
 const SET_EVENTS = "SET_EVENTS";
 const SET_CITY = "SET_CITY";
+const GET_CITIES = "GET_CITIES";
 
 export default function reducer(state = INITIAL_STATE, action) {
 	switch (action.type) {
@@ -18,6 +20,9 @@ export default function reducer(state = INITIAL_STATE, action) {
 
 		case SET_CITY:
 			return Object.assign({}, state, { city: action.payload });
+
+		case GET_CITIES:
+			return Object.assign({}, state, { citiesList: action.payload });
 
 		default:
 			return state;
@@ -46,4 +51,12 @@ export function setCity(city) {
 		type: SET_CITY,
 		payload: city
 	};
+}
+
+export function getCities(citiesList) {
+	console.log("getCities in reducer", citiesList)
+	return {
+		type: GET_CITIES,
+		payload: citiesList
+	}
 }

@@ -25,6 +25,9 @@
 		display: flex;
 		position: relative;
 		cursor: pointer;
+		::placeholder {
+			color: rgba(246, 207, 143, 0.411);
+		}
 
 		.home-search-input {
 			display: flex;
@@ -41,7 +44,6 @@
 			z-index: 2;
 			color: rgb(246, 206, 143);
 			padding-left: 10px;
-			cursor: pointer;
 			outline: none;
 		}
 		svg {
@@ -69,6 +71,8 @@
 		list-style: none;
 		border-bottom: 1px solid #d8d8d823;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+		height: 100%;
+		width: 100%;
 		margin: 0;
 		padding: 20px;
 		transition: 0.2s;
@@ -76,30 +80,26 @@
 		justify-content: space-between;
 		align-items: center;
 		text-transform: capitalize;
-		a,
-		a:link,
-		a:visited,
-		a:hover,
-		a:active {
-			text-decoration: none;
-			font-family: sans-serif;
-			color: rgb(246, 206, 143);
-		}
+		cursor: pointer;
+		
+		
 
 		p {
 			font-size: 20px;
 			width: 450px;
 		}
 	}
+	a,
+	a:link,
+	a:visited,
+	a:hover,
+	a:active {
+			text-decoration: none;
+			font-family: sans-serif;
+			color: rgb(246, 206, 143);
+		}
 	.search-dropdown:hover {
 		background: rgb(246, 206, 143);
-
-		a,
-		a:link,
-		a:visited,
-		a:hover,
-		a:active {
-			color: rgba(150, 117, 122, 0.9);
-		}
+		color: rgba(150, 117, 122, 0.9);
 	}
 }
