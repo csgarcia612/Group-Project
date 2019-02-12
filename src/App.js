@@ -1,8 +1,11 @@
-import React, { Component } from "react";
-import "./App.scss";
-import routes from "./routes";
-import Header from "./components/header/header";
-import Footer from "./components/footer/footer";
+import React, { Component } from 'react';
+import './App.scss';
+import routes from './routes';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
+
+const dotenv = require('dotenv');
+dotenv.config();
 
 class App extends Component {
 	constructor() {
@@ -11,11 +14,11 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<div className="App">
+			<div className='App'>
 				<header>
 					<Header />
 				</header>
-				<div className="site-contents-container">
+				<div className='site-contents-container'>
 					{routes}
 					<Footer />
 				</div>

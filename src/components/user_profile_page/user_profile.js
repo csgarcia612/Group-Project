@@ -4,7 +4,22 @@ import {Query, Mutation} from 'react-apollo';
 import {connect} from 'react-redux';
 import {setUser} from '../../dux/reducer'
 
+class UserProfile extends Component {
+	state = {
+		users: [],
+		editing: false,
+		address_one: this.props.address_one,
+		address_two: this.props.address_two,
+		city: this.props.city,
+		state: this.props.state,
+		zipcode: this.props.zipcode
+	};
 
+	handleInput = e => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
 
 class UserProfile extends Component{
     state = {
@@ -18,11 +33,8 @@ class UserProfile extends Component{
         zipcode: 0
     }
 
-    handleInput = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+		const userId = this.props.user && this.props.user.auth0_id;
+		console.log('userID', userId);
 
     render(){
         const {editingState} = this.state;
@@ -190,9 +202,12 @@ class UserProfile extends Component{
         }
 }
 const mapStateToProp = state => {
-    return {
-        user: state.user
-    }
-}
+	return {
+		user: state.user
+	};
+};
 
-export default connect(mapStateToProp, {setUser})(UserProfile); 
+export default connect(
+	mapStateToProp,
+	{ setUser }
+)(UserProfile);
