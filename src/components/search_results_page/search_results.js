@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./search_results.scss";
-import { filter } from "graphql-anywhere";
-import axios from "axios";
-import { NavLink } from "react-router-dom";
-import { setEvents, setCity } from "../../dux/reducer";
-import SingleResult from "../single_search_result/single_result";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './search_results.scss';
+// import { filter } from "graphql-anywhere";
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import { setEvents, setCity } from '../../dux/reducer';
+import SingleResult from '../single_search_result/single_result';
 
 class search_results extends Component {
 	constructor(props) {
@@ -15,7 +15,8 @@ class search_results extends Component {
 			startDateTime: null,
 			endDateTime: null,
 			radius: 50,
-			genreId: "KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF"
+			genreId:
+				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'
 		};
 	}
 
@@ -23,53 +24,60 @@ class search_results extends Component {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
-		console.log(e.target.value);
+		// console.log(e.target.value);
 	};
 
 	handleSearch = () => {
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=100`;
-		let filterCriteria = {};
+		// let filterCriteria = {};
 		for (let key in this.state) {
-			console.log('each key in state', key)
-			console.log('each value of state key', this.state[key])
+			// console.log("each key in state", key);
+			// console.log("each value of state key", this.state[key]);
 			if (this.state[key]) {
 				searchQuery += `&${key}=${this.state[key]}`;
-				if (key === 'startDateTime' || key === 'endDateTime' && this.state[key]) {
-					searchQuery += "T00:00:00Z";
+				if (
+					key === 'startDateTime' ||
+					(key === 'endDateTime' && this.state[key])
+				) {
+					searchQuery += 'T00:00:00Z';
 				}
 			}
-			console.log(searchQuery);
+			// console.log(searchQuery);
 		}
 		// console.log(searchQuery);
-		axios.get(searchQuery).then(response => {
-			console.log('response.data in searchquery response', response.data);
-			if(response.data.page.totalElements === 0){
-				this.props.setEvents(null)
-			} else {
-				this.props.setEvents(response.data)
-				this.state.city && this.props.setCity(this.state.city);
-			}
-		}).catch( error => {
-			console.log('---error in search', error)
-		})
+		axios
+			.get(searchQuery)
+			.then(response => {
+				// console.log("response.data in searchquery response", response.data);
+				if (response.data.page.totalElements === 0) {
+					this.props.setEvents(null);
+				} else {
+					this.props.setEvents(response.data);
+					this.state.city && this.props.setCity(this.state.city);
+				}
+			})
+			.catch(error => {
+				console.log('---error in search', error);
+			});
 	};
 
 	render() {
-		const date = new Date;
-		
-		console.log('date',Date.now())
+		// const date = new Date();
+
+		console.log('date', Date.now());
 		const initialState = {
 			city: this.props.city,
 			startDateTime: null,
 			endDateTime: null,
 			radius: 50,
-			genreId: "KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF"
+			genreId:
+				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'
 		};
-		console.log('this.props on search results', this.props)
+		console.log('this.props on search results', this.props);
 		const eventsList =
 			this.props.events &&
 			this.props.events._embedded.events.map(e => {
-				console.log("e", e);
+				// console.log("e", e);
 				return (
 					<NavLink
 						to={`/event/${e.id}`}
@@ -81,15 +89,15 @@ class search_results extends Component {
 					</NavLink>
 				);
 			});
-		console.log("state", this.state);
+		// console.log("state", this.state);
 		return (
 			<div className="search-results-container">
 				<div className="filters">
 					<div className="filter-container">
-						<input 
-							name="city" 
+						<input
+							name="city"
 							value={this.state.city}
-							onChange={e => this.handleUserInput(e)} 
+							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
 					<div className="filter-container">
