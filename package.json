@@ -29,13 +29,15 @@
 		"react-stripe-elements": "^2.0.3",
 		"redux": "^4.0.1",
 		"stripe": "^6.23.1",
-		"stripe-checkout": "^1.0.9"
+		"stripe-checkout": "^1.0.9",
+		"sinon": "^7.2.3"
 	},
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"integration-test": "jest --watch server/"
 	},
 	"eslintConfig": {
 		"extends": "react-app"

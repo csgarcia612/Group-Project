@@ -43,8 +43,20 @@
 		}
 	}
 
+	.menu-container {
+		display: flex;
+		position: initial;
+		flex-direction: column;
+		align-items: center;
+	}
+
 	.show-menu-container {
 		display: flex;
+
+		ul {
+			li {
+			}
+		}
 	}
 
 	.hide-menu-container {

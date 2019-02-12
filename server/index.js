@@ -53,7 +53,7 @@ app.post('/api/logout', (req, res) => {
 });
 
 app.get('/auth/callback', authController.login);
-app.post('/nodemailer', nodemailer.send);
+app.post('/api/nodemailer', nodemailer.send);
 // app.get("/auth/user-data", authController.getUser);
 // app.post("/auth/logout", authController.logout);
 

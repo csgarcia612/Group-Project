@@ -21,6 +21,21 @@ class UserProfile extends Component {
 		});
 	};
 
+// class UserProfile extends Component{
+//     state = {
+//         users: [],
+//         addressProperties: ['address_one', "address_two", "city", "state", "zipcode"],
+//         editingState: false,
+//         address_one: '',
+//         address_two: '',
+//         city: '',
+//         state: '',
+//         zipcode: 0
+//     }
+
+		// const userId = this.props.user && this.props.user.auth0_id;
+		// console.log('userID', userId);
+
     render(){
         const {editingState} = this.state;
         let address_id 

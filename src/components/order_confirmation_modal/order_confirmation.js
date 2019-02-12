@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './order_confirmation.scss';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUser } from '../../dux/reducer';
 import StripeCheckout from 'react-stripe-checkout';
@@ -72,6 +73,18 @@ class OrderConfirmation extends Component {
 
 	onToken = token => {
 		console.log('stripe token:', token);
+
+		const recipient = {
+			auth0_id: this.props.user.auth0_id,
+			name: this.state.userName,
+			to: this.state.userEmail,
+			subject: `Thank you ${
+				this.state.userName
+			} for your recent ticket purchase on Melo-Tree`
+			// price: this.total(),
+			// cart: this.props.cartProducts
+		};
+
 		const creditCharge = {
 			token,
 			state: this.state
@@ -79,7 +92,16 @@ class OrderConfirmation extends Component {
 		// console.log("creditCharge", creditCharge);
 		axios
 			.post('/api/stripe', creditCharge)
-			.then(res => console.log('stripe response from server', res))
+			.then(res => {
+				console.log('stripe response from server', res);
+				axios.post('/api/nodemailer', recipient).then(res => {
+					console.log('nodemailer response', res);
+					return alert(
+						'Payment successful! Check your email for order confirmation receipt'
+					);
+				});
+				this.props.history.push('/');
+			})
 			.catch(error => {
 				console.log('Error with front end credit processing', error);
 			});
@@ -194,7 +216,9 @@ const mapDispatchToProps = {
 	setUser: setUser
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(OrderConfirmation);
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(OrderConfirmation)
+);
