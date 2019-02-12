@@ -2,7 +2,8 @@ update addresses
 SET address_one = ${address_one},
 address_two = ${address_two},
 city = ${city},
-state = ${state}
+state = ${state},
+zipcode = ${zipcode}
 where user_id = ${user_id} and address_id = ${address_id};
 
 
