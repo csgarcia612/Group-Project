@@ -1,4 +1,226 @@
-.event-details-container {
-	font-size: 30px;
-	color: white;
+.event-details-page-container {
+	display: flex;
+	position: relative;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	overflow: scroll;
+
+	.show-modal {
+		display: flex;
+		position: absolute;
+		z-index: 250;
+		width: 100%;
+		height: calc(100% - 35px);
+		background: rgba(150, 117, 122, 0.9);
+		justify-content: center;
+		align-items: center;
+	}
+
+	.hide-modal {
+		display: none;
+	}
+
+	.event-details-container {
+		display: flex;
+		// position: relative;
+		align-items: center;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		overflow: scroll;
+
+		.event-details-image-container {
+			display: flex;
+			// position: relative;
+			justify-content: center;
+			align-content: center;
+			margin: 20px;
+			width: auto;
+			height: 300px;
+
+			.artist-picture {
+				display: flex;
+				width: auto;
+				height: 100%;
+				border: rgba(51, 1, 54, 0.9);
+				border-style: solid;
+				border-width: 1.5px;
+				border-radius: 15px;
+				box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px,
+					#5e1742 0px 0px 15px, #5e1742 0px 0px 20px, #5e1742 0px 0px 25px,
+					#5e1742 0px 0px 40px;
+			}
+		}
+
+		.event-name {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			font-family: sans-serif;
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		.event-details-info-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			margin: 20px;
+
+			.event-venue-info-container {
+				display: flex;
+				position: relative;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 0px 50px 0px 50px;
+
+				.event-date-time-container {
+					display: flex;
+					// position: relative;
+					align-items: center;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					margin: 0px 50px 20px 50px;
+
+					.event-date {
+						display: flex;
+						// position: relative;
+						align-items: center;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 20px;
+						margin: 10px 0px 10px 0px;
+					}
+
+					.event-time {
+						display: flex;
+						position: relative;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 20px;
+						margin: 0px 0px 10px 0px;
+					}
+				}
+
+				.venue-name {
+					display: flex;
+					position: relative;
+					text-align: center;
+					font-family: sans-serif;
+					font-size: 25px;
+					margin: 0px 0px 10px 0px;
+				}
+
+				.venue-address-container {
+					display: flex;
+					position: relative;
+					flex-direction: column;
+					justify-content: left;
+
+					.venue-street-address {
+						display: flex;
+						position: relative;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 20px;
+						margin: 0px 0px 5px 0px;
+					}
+
+					.venue-city-state-zip {
+						display: flex;
+						position: relative;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 20px;
+						margin: 0px 0px 5px 0px;
+					}
+				}
+			}
+
+			.event-artist-info-container {
+				display: flex;
+				position: relative;
+				flex-direction: column;
+				align-items: center;
+				margin: 0px 50px 0px 0px;
+
+				.starring {
+					display: flex;
+					position: relative;
+					text-align: center;
+					font-family: sans-serif;
+					font-size: 20px;
+				}
+
+				.artist-name {
+					display: flex;
+					position: relative;
+					text-align: center;
+					font-family: sans-serif;
+					font-size: 30px;
+					margin: 5px 0px 10px 0px;
+				}
+
+				.show-special-guests {
+					display: flex;
+					position: relative;
+					flex-direction: column;
+					align-items: center;
+
+					.special-guest {
+						display: flex;
+						position: relative;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 20px;
+						margin: 5px 0px;
+					}
+
+					.guest-artist {
+						display: flex;
+						position: relative;
+						text-align: center;
+						font-family: sans-serif;
+						font-size: 25px;
+						margin: 0px 0px 5px 0px;
+					}
+				}
+
+				.hide-special-guests {
+					display: none;
+				}
+			}
+		}
+
+		.event-purchase-container {
+			display: flex;
+			position: relative;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 50%;
+
+			.ticket-price {
+				display: flex;
+				position: relative;
+				text-align: center;
+				font-family: sans-serif;
+				font-size: 25px;
+				font-weight: bolder;
+				color: red;
+				margin-right: 40px;
+			}
+
+			button {
+				display: flex;
+				font-size: 18px;
+			}
+		}
+	}
 }

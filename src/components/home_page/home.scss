@@ -33,6 +33,10 @@
 			display: flex;
 			position: relative;
 			width: 500px;
+			z-index: 2;
+			padding-left: 10px;
+			outline: none;
+			cursor: pointer;
 			background-color: rgba(150, 117, 122, 0.9);
 			border: rgba(51, 1, 54, 0.9);
 			border-style: solid;
@@ -40,19 +44,19 @@
 			border-radius: 5px;
 			box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px,
 				#5e1742 0px 0px 15px;
-			font-size: 30px;
-			z-index: 2;
+			font-size: 20px;
 			color: rgb(246, 206, 143);
 			padding-left: 10px;
 			outline: none;
 		}
+
 		svg {
 			position: absolute;
-			top: 7px;
-			right: 7px;
+			top: 5px;
+			right: 6px;
 			z-index: 2;
-			height: 25px;
-			width: 25px;
+			height: 18px;
+			width: 18px;
 			fill: rgb(246, 206, 143);
 		}
 	}
@@ -74,15 +78,13 @@
 		height: 100%;
 		width: 100%;
 		margin: 0;
-		padding: 20px;
+		padding: 15px 20px;
 		transition: 0.2s;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		text-transform: capitalize;
 		cursor: pointer;
-		
-		
 
 		p {
 			font-size: 20px;
@@ -94,10 +96,10 @@
 	a:visited,
 	a:hover,
 	a:active {
-			text-decoration: none;
-			font-family: sans-serif;
-			color: rgb(246, 206, 143);
-		}
+		text-decoration: none;
+		font-family: sans-serif;
+		color: rgb(246, 206, 143);
+	}
 	.search-dropdown:hover {
 		background: rgb(246, 206, 143);
 		color: rgba(150, 117, 122, 0.9);
