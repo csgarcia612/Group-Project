@@ -4,38 +4,28 @@ import {Query, Mutation} from 'react-apollo';
 import {connect} from 'react-redux';
 import {setUser} from '../../dux/reducer'
 
-class UserProfile extends Component {
-	state = {
-		users: [],
-		editing: false,
-		address_one: this.props.address_one,
-		address_two: this.props.address_two,
-		city: this.props.city,
-		state: this.props.state,
-		zipcode: this.props.zipcode
-	};
 
-	handleInput = e => {
-		this.setState({
-			[e.target.name]: e.target.value
-		});
-	};
 
-// class UserProfile extends Component{
-//     state = {
-//         users: [],
-//         addressProperties: ['address_one', "address_two", "city", "state", "zipcode"],
-//         editingState: false,
-//         address_one: '',
-//         address_two: '',
-//         city: '',
-//         state: '',
-//         zipcode: 0
-//     }
 
-		// const userId = this.props.user && this.props.user.auth0_id;
-		// console.log('userID', userId);
-
+class UserProfile extends Component{
+    state = {
+        users: [],
+        addressProperties: ['address_one', "address_two", "city", "state", "zipcode"],
+        editingState: false,
+        address_one: '',
+        address_two: '',
+        city: '',
+        state: '',
+        zipcode: 0
+    }
+    
+    
+    handleInput = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
+    
     render(){
         const {editingState} = this.state;
         let address_id 
@@ -83,6 +73,7 @@ class UserProfile extends Component {
                       
             
         return (
+            
             this.props.user ? (
             <div className= 'user-profile-container'>
                 {getUser(userId)}
@@ -197,8 +188,10 @@ class UserProfile extends Component {
                         </Mutation>
                 </React.Fragment>
             }
+            
             </div>
         ) : (<div>Please Login</div>))
+        
         }
 }
 const mapStateToProp = state => {

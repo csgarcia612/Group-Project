@@ -5,6 +5,7 @@ import axios from 'axios';
 import { setUser } from '../../dux/reducer';
 import OrderConfirmation from '../order_confirmation_modal/order_confirmation';
 
+
 class EventDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -26,6 +27,8 @@ class EventDetails extends Component {
 		this.getPrice();
 		this.getTime();
 		this.getDate();
+		
+		
 	}
 
 	getEvent() {
@@ -104,6 +107,11 @@ class EventDetails extends Component {
 
 	render() {
 		const { singleEvent, ticketPrice } = this.state;
+		// let event = singleEvent && singleEvent._embedded.venues[0].name
+		let location = singleEvent && `${singleEvent._embedded.venues[0].location.latitude}, ${singleEvent._embedded.venues[0].location.longitude }`
+	
+		
+		
 		let splitEventName =
 			singleEvent &&
 			singleEvent.name.split(
@@ -164,6 +172,7 @@ class EventDetails extends Component {
 		};
 
 		return (
+			singleEvent ? (
 			<div className='event-details-page-container'>
 				<div className={this.state.showModal ? 'show-modal' : 'hide-modal'}>
 					{/* {console.log('singleEvent', singleEvent)} */}
@@ -178,11 +187,11 @@ class EventDetails extends Component {
 					<div className='event-details-image-container'>
 						<img
 							className='artist-picture'
-							src={singleEvent && bestArtistPicture.url}
+							src={bestArtistPicture.url}
 							alt='Single Event Imagery'
 						/>
 					</div>
-					<p className='event-name'>{singleEvent && singleEvent.name}</p>
+					<p className='event-name'>{singleEvent.name}</p>
 					<div className='event-details-info-container'>
 						<div className='event-venue-info-container'>
 							<div className='event-date-time-container'>
@@ -190,17 +199,17 @@ class EventDetails extends Component {
 								<p className='event-time'>{this.getTime()}</p>
 							</div>
 							<p className='venue-name'>
-								{singleEvent && singleEvent._embedded.venues[0].name}
+								{singleEvent._embedded.venues[0].name}
 							</p>
 							<div className='venue-address-container'>
 								<p className='venue-street-address'>
-									{singleEvent && singleEvent._embedded.venues[0].address.line1}
+									{singleEvent._embedded.venues[0].address.line1}
 								</p>
 								<p className='venue-city-state-zip'>
-									{`${singleEvent &&
-										singleEvent._embedded.venues[0].city.name}, ${singleEvent &&
+									{`${
+										singleEvent._embedded.venues[0].city.name}, ${
 										singleEvent._embedded.venues[0].state
-											.stateCode} ${singleEvent &&
+											.stateCode} ${
 										singleEvent._embedded.venues[0].postalCode}`}
 								</p>
 							</div>
@@ -210,7 +219,6 @@ class EventDetails extends Component {
 							<p className='artist-name'>{mainArtistName}</p>
 							<div
 								className={
-									singleEvent &&
 									(singleEvent._embedded.attractions &&
 										singleEvent._embedded.attractions.length > 1)
 										? 'show-special-guests'
@@ -222,13 +230,14 @@ class EventDetails extends Component {
 							</div>
 						</div>
 					</div>
+					<iframe width="400" height="400" src={`https://www.google.com/maps/embed/v1/place?q=${location }&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}></iframe>
 					<div className='event-purchase-container'>
 						<p className='ticket-price'>Price: ${ticketPrice}.00</p>
 						<button onClick={this.toggleModal}>Purchase Tickets</button>
 					</div>
 				</div>
 			</div>
-		);
+		) : (<div>please log in</div>))
 	}
 }
 

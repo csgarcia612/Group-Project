@@ -74,7 +74,7 @@ class Header extends Component {
 						<>
 							<ul>
 								<li>
-									<a href={`/user/${user.username}`}>{user.first_name}</a>
+									<a href={`/profile/${user.username}`}>{user.first_name}</a>
 								</li>
 								<li>
 									<a href='/contact'>Contact</a>
