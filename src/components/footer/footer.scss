@@ -13,14 +13,14 @@
 	box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
 		#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
 
-	.footer-name-container {
+	.footer-slogan-container {
 		display: flex;
 		flex-direction: row;
 		height: 100%;
 		width: auto;
 		color: rgb(246, 206, 143);
 
-		.footer-name {
+		.footer-slogan {
 			font-size: 20px;
 			margin: 5px;
 		}
@@ -38,7 +38,7 @@
 			align-items: center;
 			height: 30px;
 			width: auto;
-			margin: 0px 5px 0px 5px;
+			margin: 0px 7px 7px 7px;
 			cursor: pointer;
 			outline: none;
 

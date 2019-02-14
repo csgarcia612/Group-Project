@@ -64,7 +64,7 @@ class search_results extends Component {
 
 	handleSearch = () => {
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=20&sort=date,asc`;
-		let filterCriteria = {};
+		// let filterCriteria = {};
 		for (let key in this.state) {
 			if (this.state[key]) {
 				searchQuery += `&${key}=${this.state[key]}`;
