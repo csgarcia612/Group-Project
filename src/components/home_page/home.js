@@ -21,10 +21,7 @@ class home extends Component {
 	}
 
 	onKeyDown = e => {
-		console.log('keydown event', e.key);
-		console.log('keydown event', e);
-		console.log(this.state.filteredLocations[0]);
-		if (e.key == 'Enter') {
+		if (e.key == 'Enter' && this.state.filteredLocations) {
 			this.searchEvents(this.state.filteredLocations[0]);
 		}
 	};
@@ -36,7 +33,10 @@ class home extends Component {
 			)
 			.then(locations => {
 				this.props.getCities(locations.data);
-			});
+			})
+			// .catch(error => {
+			// 	console.log('error in getCities', error)
+			// })
 	};
 
 	handleSearch = e => {
@@ -80,11 +80,11 @@ class home extends Component {
 		let customSearch = baseSearch + '&city=' + e.city;
 		this.props.setCity(e.city);
 		axios.get(customSearch).then(response => {
-			console.log(
-				'response.data in home before setting redux state',
-				response.data
-			);
-			this.props.setEvents(response.data);
+			if(response.data.page.totalElements === 0){
+				this.props.setEvents(null);
+			} else {
+				this.props.setEvents(response.data);
+			}
 		});
 		this.props.history.push('/search');
 	};

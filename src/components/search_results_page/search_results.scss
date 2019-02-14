@@ -7,29 +7,112 @@
 	width: 100%;
 	height: 100%;
 	overflow: scroll;
+	.search-bar {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		background-color: rgba(94, 23, 66, 0.75);
+		width: 100%;
+		padding: 20px;
+		::placeholder {
+			color: rgba(246, 207, 143, 0.411);
+		}
+		.dropdown-menu {
+			position: absolute;
+			top: 95px;
+			margin-left: auto;
+			margin-right: auto;
+			left: 0;
+			right: 0;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			overflow: scroll;
+			max-height: 300px;
+			.search-dropdown {
+				background: rgba(150, 117, 122, 0.9);
+				list-style: none;
+				border-bottom: 1px solid #d8d8d823;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.14);
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 15px 20px;
+				transition: 0.2s;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				text-transform: capitalize;
+				cursor: pointer;
+		
+				p {
+					font-size: 20px;
+					width: 45vw;
+				}
+				
+			}
+			a,
+			a:link,
+			a:visited,
+			a:hover,
+			a:active {
+				text-decoration: none;
+				font-family: sans-serif;
+				color: rgb(246, 206, 143);
+			}
+			.search-dropdown:hover {
+				background: rgb(246, 206, 143);
+				color: rgba(150, 117, 122, 0.9);
+			}
+		}
+		.input-field {
+			height: 15vh;
+			color: rgb(246, 206, 143);
+			background-color:  rgba(150, 117, 122, 0.9);
+			margin: 5px;
+			font-family: sans-serif;
+			font-size: 32px;
+			height: 70px;
+			border-radius: 15px;
+			border: solid rgb(246, 206, 143) 2px;
+			width: 50vw;
+			padding: 10px;
+		}
+		.buttonOn {
+			transition: 0.5s ease-in-out;
+			transform: rotate(180deg);
+		}
+		.buttonOff {
+			
+		}
+	}
+	
 	.filters {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: rgb(94, 23, 66);
-		box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
-			#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
+		background-color: rgba(94, 23, 66, 0.75);
 		width: 100%;
-		padding-top: 20px;
+		padding-bottom: 10px;
+		transition: 0.5s ease-in-out;
 		
 		.filter-container {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
-			align-items: flex-start;
+			align-items: center;
 			color: rgb(246, 206, 143);
 			background-color:  rgba(150, 117, 122, 0.9);
-			// border: white solid 5px;
 			margin: 5px;
 			font-family: sans-serif;
-			font-size: 20px;
-			// border-bottom: solid rgba(0, 0, 0, 0.432) 2px;
-			padding: 10px;
+			font-size: 16px;
+			padding: 5px;
+			// padding: 10px;
 			height: 70px;
 			border-radius: 15px;
 			input,
@@ -38,8 +121,9 @@
 				background-color: transparent;
 				color: rgb(246, 206, 143);
 				border: none;
-				height: 70px;
-				width: 150px;
+				height: 15vh;
+				width: 15vw;
+				text-align: center;
 			}
 			
 			input {
@@ -95,6 +179,9 @@
 	}
 
 	.loaded {
+		display: none;
+	}
+	.filters-off {
 		display: none;
 	}
 }
