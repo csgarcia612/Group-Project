@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './search_results.scss';
-// import { filter } from "graphql-anywhere";
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { setEvents, setCity } from '../../dux/reducer';
+import { setEvents, setCity, getCities } from '../../dux/reducer';
 import SingleResult from '../single_search_result/single_result';
+import arrow from './icons8-sort-down-24.png'
 
 class search_results extends Component {
 	constructor(props) {
@@ -17,23 +17,55 @@ class search_results extends Component {
 			endDateTime: null,
 			radius: 50,
 			genreId:
-				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'
+				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF',
+			filterToggle: false,
+			filteredLocations: null,
+			searchQuery: null,
 		};
 	}
+
+	componentDidMount() {
+		this.getCities();
+		console.log('props on searchresults', this.props)
+	}
+
+	getCities = () => {
+		axios
+			.get(
+				'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
+			)
+			.then(locations => {
+				this.props.getCities(locations.data);
+			});
+	};
+
+	onKeyDown = e => {
+		if (e.key == 'Enter') {
+			this.handleSearch(this.state.filteredLocations[0]);
+		}
+	};
+
+	handleQuery = e => {
+		if (e.target.value.match(/\W/) && !e.target.value.match(/\s/)) {
+			return;
+		} else {
+			this.setState({
+				searchQuery: e.target.value
+			});
+			this.displayFilteredCities(e.target.value);
+		}
+	};
 
 	handleUserInput = e => {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
-		// console.log(e.target.value);
 	};
 
 	handleSearch = () => {
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=20&sort=date,asc`;
 		// let filterCriteria = {};
 		for (let key in this.state) {
-			// console.log("each key in state", key);
-			// console.log("each value of state key", this.state[key]);
 			if (this.state[key]) {
 				searchQuery += `&${key}=${this.state[key]}`;
 				if (
@@ -43,9 +75,7 @@ class search_results extends Component {
 					searchQuery += 'T00:00:00Z';
 				}
 			}
-			// console.log(searchQuery);
 		}
-		// console.log(searchQuery);
 		axios
 			.get(searchQuery)
 			.then(response => {
@@ -62,10 +92,46 @@ class search_results extends Component {
 			});
 	};
 
-	render() {
-		// const date = new Date();
+	displayFilteredCities = userInput => {
+		let filteredLocations;
+		let searchFilter = new RegExp(userInput, 'gi');
+		filteredLocations = this.props.citiesList.filter(e => {
+			return e.city.match(searchFilter) || e.state.match(searchFilter);
+		});
+		this.setState({
+			filteredLocations,
+			closestMatch: filteredLocations[0]
+		});
+	};
 
-		console.log('date', Date.now());
+	handleFilterToggle = (initialState) => {
+		this.setState({
+			filterToggle: !this.state.filterToggle
+		})
+		if(this.state.filterToggle === false){
+			this.setState({
+				...initialState
+			})
+		}
+	}
+
+	render() {
+		const searchDropDown = this.state.filteredLocations && this.state.filteredLocations.map(e => {
+			return (
+				<NavLink to='/search'>
+					<div
+						key={e.rank}
+						name='search'
+						// onClick={}
+						className={this.state.filteredLocations.length > 0 ? 'search-dropdown' : 'filters-off'}
+					>
+						<p>
+							{e.city}, {e.state}
+						</p>
+					</div>
+				</NavLink>
+			);
+		});
 		const initialState = {
 			city: this.props.city,
 			startDateTime: null,
@@ -74,11 +140,9 @@ class search_results extends Component {
 			genreId:
 				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'
 		};
-		console.log('this.props on search results', this.props);
 		const eventsList =
 			this.props.events &&
 			this.props.events._embedded.events.map(e => {
-				// console.log("e", e);
 				return (
 					<NavLink
 						to={`/event/${e.id}`}
@@ -93,17 +157,26 @@ class search_results extends Component {
 		// console.log("state", this.state);
 		return (
 			<div className='search-results-container'>
-				<div className='filters'>
-					<div className='filter-container'>
+				<div className='search-bar'>
+					<div>
 						<input
+							readOnly
 							type='text'
 							className='input-field'
 							name='city'
-							value={this.state.city}
-							onChange={e => this.handleUserInput(e)}
+							placeholder={this.state.city}
+							onChange={e => this.handleQuery(e)}
+							onKeyDown={e => this.onKeyDown(e)}
 						/>
 					</div>
-					<div className='filter-container'>
+					<div className='dropdown-menu'>
+						{this.state.filteredLocations && searchDropDown}
+					</div>
+					<p>Filters</p>
+					<img src={arrow} onClick={() => this.handleFilterToggle(initialState)} className={this.state.filterToggle ? "buttonOn" : "buttonOff"}/>
+				</div>
+				<div className={this.state.filterToggle ? 'filters' : 'filters-off'}>
+					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
 						<h2>Start Date</h2>
 						<input
 							name='startDateTime'
@@ -111,7 +184,7 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className='filter-container'>
+					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
 						<h2>End Date</h2>
 						<input
 							name='endDateTime'
@@ -119,7 +192,7 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className='filter-container'>
+					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
 						<h2>Distance</h2>
 						<input
 							type='number'
@@ -131,7 +204,7 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className='filter-container'>
+					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
 						<h2>Genre</h2>
 						<select name='genreId' onChange={e => this.handleUserInput(e)}>
 							<option value='KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'>
@@ -160,7 +233,7 @@ class search_results extends Component {
 							<option value='KnvZfZ7vAeF'>World</option>
 						</select>
 					</div>
-					<div className='filter-container'>
+					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
 						<button onClick={() => this.setState({ ...initialState })}>
 							Clear
 						</button>
@@ -168,7 +241,7 @@ class search_results extends Component {
 					</div>
 				</div>
 				<div className='events-list'>
-					{eventsList ? eventsList : <h1>Search Returned No Results</h1>}
+					{eventsList ? eventsList : <h1>No Results</h1>}
 				</div>
 				{/* <img className={this.state.loading ? 'loading' : 'loaded'} src='https://media.giphy.com/media/7FfMfPHQr9romeeKtk/giphy.gif' alt='loading'/> */}
 			</div>
@@ -179,11 +252,12 @@ class search_results extends Component {
 const mapStateToProps = state => {
 	return {
 		events: state.events,
-		city: state.city
+		city: state.city,
+		citiesList: state.citiesList
 	};
 };
 
 export default connect(
 	mapStateToProps,
-	{ setEvents, setCity }
+	{ setEvents, setCity, getCities }
 )(search_results);
