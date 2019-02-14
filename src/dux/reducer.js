@@ -30,7 +30,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 }
 
 export function setUser(user) {
-	console.log("setUser in reducer", user);
+	// console.log("setUser in reducer", user);
 	return {
 		type: SET_USER,
 		payload: user

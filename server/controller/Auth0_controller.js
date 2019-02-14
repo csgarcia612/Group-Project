@@ -64,7 +64,7 @@ module.exports = {
 							splitName[0],
 							splitName[1],
 							user.email,
-							user.image_url
+							user.image_url || user.picture
 						])
 						.then(newlyCreateUser => {
 							req.session.user = newlyCreateUser[0];
