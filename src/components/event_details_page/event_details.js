@@ -5,7 +5,6 @@ import axios from 'axios';
 import { setUser } from '../../dux/reducer';
 import OrderConfirmation from '../order_confirmation_modal/order_confirmation';
 
-
 class EventDetails extends Component {
 	constructor(props) {
 		super(props);
@@ -27,8 +26,6 @@ class EventDetails extends Component {
 		this.getPrice();
 		this.getTime();
 		this.getDate();
-		
-		
 	}
 
 	getEvent() {
@@ -48,9 +45,7 @@ class EventDetails extends Component {
 
 	getTime() {
 		const { singleEvent } = this.state;
-		let splitTime =
-			singleEvent.dates.start.localTime &&
-			singleEvent.dates.start.localTime.split(':');
+		let splitTime = singleEvent && singleEvent.dates.start.localTime.split(':');
 
 		let timeValue;
 
@@ -79,8 +74,7 @@ class EventDetails extends Component {
 		const { singleEvent } = this.state;
 
 		let eventDate = new Date(
-			`${singleEvent.dates.start.localDate &&
-				singleEvent.dates.start.localDate}`
+			`${singleEvent && singleEvent.dates.start.localDate}`
 		);
 
 		let options = {
@@ -111,10 +105,12 @@ class EventDetails extends Component {
 	render() {
 		const { singleEvent, ticketPrice } = this.state;
 		// let event = singleEvent && singleEvent._embedded.venues[0].name
-		let location = singleEvent && `${singleEvent._embedded.venues[0].location.latitude}, ${singleEvent._embedded.venues[0].location.longitude }`
-	
-		
-		
+		let location =
+			singleEvent &&
+			`${singleEvent._embedded.venues[0].location.latitude}, ${
+				singleEvent._embedded.venues[0].location.longitude
+			}`;
+
 		let splitEventName =
 			singleEvent &&
 			singleEvent.name
@@ -134,8 +130,7 @@ class EventDetails extends Component {
 
 		let specialGuests =
 			singleEvent &&
-			(singleEvent._embedded.attractions &&
-			singleEvent._embedded.attractions.length > 1
+			(singleEvent && singleEvent._embedded.attractions.length > 1
 				? 'WITH SPECIAL GUEST(S)'
 				: null);
 
@@ -176,8 +171,7 @@ class EventDetails extends Component {
 			time: this.getTime()
 		};
 
-		return (
-			singleEvent ? (
+		return singleEvent ? (
 			<div className='event-details-page-container'>
 				<div className={this.state.showModal ? 'show-modal' : 'hide-modal'}>
 					{/* {console.log('singleEvent', singleEvent)} */}
@@ -211,11 +205,9 @@ class EventDetails extends Component {
 									{singleEvent._embedded.venues[0].address.line1}
 								</p>
 								<p className='venue-city-state-zip'>
-									{`${
-										singleEvent._embedded.venues[0].city.name}, ${
-										singleEvent._embedded.venues[0].state
-											.stateCode} ${
-										singleEvent._embedded.venues[0].postalCode}`}
+									{`${singleEvent._embedded.venues[0].city.name}, ${
+										singleEvent._embedded.venues[0].state.stateCode
+									} ${singleEvent._embedded.venues[0].postalCode}`}
 								</p>
 							</div>
 						</div>
@@ -224,8 +216,7 @@ class EventDetails extends Component {
 							<p className='artist-name'>{mainArtistName}</p>
 							<div
 								className={
-									(singleEvent._embedded.attractions &&
-										singleEvent._embedded.attractions.length > 1)
+									singleEvent && singleEvent._embedded.attractions.length > 1
 										? 'show-special-guests'
 										: 'hide-special-guests'
 								}
@@ -235,14 +226,22 @@ class EventDetails extends Component {
 							</div>
 						</div>
 					</div>
-					<iframe width="400" height="400" src={`https://www.google.com/maps/embed/v1/place?q=${location }&key=${process.env.REACT_APP_GOOGLE_API_KEY}`}></iframe>
+					<iframe
+						width='400'
+						height='400'
+						src={`https://www.google.com/maps/embed/v1/place?q=${location}&key=${
+							process.env.REACT_APP_GOOGLE_API_KEY
+						}`}
+					/>
 					<div className='event-purchase-container'>
 						<p className='ticket-price'>Price: ${ticketPrice}.00</p>
 						<button onClick={this.toggleModal}>Purchase Tickets</button>
 					</div>
 				</div>
 			</div>
-		) : (<div>please log in</div>))
+		) : (
+			<div>please log in</div>
+		);
 	}
 }
 
