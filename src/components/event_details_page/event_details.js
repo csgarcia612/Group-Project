@@ -30,13 +30,13 @@ class EventDetails extends Component {
 
 	getEvent() {
 		let eventID = this.props.match.params && this.props.match.params.id;
-		// console.log("eventID", eventID);
+		console.log('eventID', eventID);
 		axios
 			.get(
 				`https://app.ticketmaster.com/discovery/v2/events/${eventID}.json?apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3`
 			)
 			.then(res => {
-				// console.log("res.data", res.data);
+				console.log('res.data', res.data);
 				this.setState({
 					singleEvent: res.data
 				});
@@ -130,12 +130,14 @@ class EventDetails extends Component {
 
 		let specialGuests =
 			singleEvent &&
-			(singleEvent && singleEvent._embedded.attractions.length > 1
+			singleEvent._embedded.attractions &&
+			(singleEvent._embedded.attractions.length > 1
 				? 'WITH SPECIAL GUEST(S)'
 				: null);
 
 		let guestList =
 			singleEvent &&
+			singleEvent._embedded.attractions &&
 			singleEvent._embedded.attractions.map(artist => {
 				// console.log("artist", artist);
 				return (
@@ -216,7 +218,9 @@ class EventDetails extends Component {
 							<p className='artist-name'>{mainArtistName}</p>
 							<div
 								className={
-									singleEvent && singleEvent._embedded.attractions.length > 1
+									singleEvent &&
+									singleEvent._embedded.attractions &&
+									singleEvent._embedded.attractions.length > 1
 										? 'show-special-guests'
 										: 'hide-special-guests'
 								}
