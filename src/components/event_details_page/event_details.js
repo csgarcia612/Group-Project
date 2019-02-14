@@ -48,7 +48,9 @@ class EventDetails extends Component {
 
 	getTime() {
 		const { singleEvent } = this.state;
-		let splitTime = singleEvent && singleEvent.dates.start.localTime.split(':');
+		let splitTime =
+			singleEvent.dates.start.localTime &&
+			singleEvent.dates.start.localTime.split(':');
 
 		let timeValue;
 
@@ -77,7 +79,8 @@ class EventDetails extends Component {
 		const { singleEvent } = this.state;
 
 		let eventDate = new Date(
-			`${singleEvent && singleEvent.dates.start.localDate}`
+			`${singleEvent.dates.start.localDate &&
+				singleEvent.dates.start.localDate}`
 		);
 
 		let options = {
@@ -114,10 +117,14 @@ class EventDetails extends Component {
 		
 		let splitEventName =
 			singleEvent &&
-			singleEvent.name.split(
-				', '
-				//  || "Plus" || "with Special Guest"
-			);
+			singleEvent.name
+				.split('plus')
+				.join(',')
+				.split('with')
+				.join(',')
+				.split('-')
+				.join(',')
+				.split(',');
 
 		let mainArtistName =
 			singleEvent &&
@@ -126,8 +133,6 @@ class EventDetails extends Component {
 				: splitEventName[0]);
 
 		let specialGuests =
-			// singleEvent &&
-			// singleEvent._embedded.attractions.length > 1 ?
 			singleEvent &&
 			(singleEvent._embedded.attractions &&
 			singleEvent._embedded.attractions.length > 1

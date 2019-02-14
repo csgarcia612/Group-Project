@@ -45,7 +45,7 @@
 				flex-direction: column;
 				width: 80%;
 				height: 100%;
-				padding: 2.5px 0px 2.5px 0px;
+				padding: 2.5px 2.5px 2.5px 2.5px;
 				border-bottom-left-radius: 10px;
 				background-color: rgba(150, 117, 122, 0.9);
 				.mini-event-name {
@@ -58,7 +58,7 @@
 				.mini-venue-name {
 					display: flex;
 					text-align: center;
-					font-size: 18px;
+					font-size: 16px;
 					color: black;
 				}
 			}
@@ -68,6 +68,7 @@
 				position: absolute;
 				right: 0;
 				flex-direction: column;
+				justify-content: space-evenly;
 				align-items: center;
 				width: 20%;
 				height: 100%;
@@ -89,4 +90,14 @@
 			}
 		}
 	}
+}
+
+.mini-event-container:hover {
+	transform: scale(1.025);
+	// border: rgba(51, 1, 54, 0.9);
+	// box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px, #5e1742 0px 0px 15px,
+	// 	#5e1742 0px 0px 20px, #5e1742 0px 0px 30px, #5e1742 0px 0px 40px;
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.7), 0px 2px 3px rgba(0, 0, 0, 0.7),
+		0px 2px 5px rgba(0, 0, 0, 0.7), 0px 2px 7px rgba(0, 0, 0, 0.7),
+		0px 2px 9px rgba(0, 0, 0, 0.7);
 }

@@ -3,8 +3,8 @@
 	position: relative;
 	align-items: center;
 	flex-direction: column;
-	height: 100%;
 	width: 100%;
+	height: calc(100vh - 35px);
 	overflow: scroll;
 
 	.show-modal {

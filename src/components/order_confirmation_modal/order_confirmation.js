@@ -194,9 +194,7 @@ class OrderConfirmation extends Component {
 								token={this.onToken}
 								triggerEvent='onClick'
 							>
-								<button className='btn btn-primary'>
-									Proceed To Payment Info
-								</button>
+								<button className='btn-primary'>Proceed To Payment Info</button>
 							</StripeCheckout>
 						</div>
 					</React.Fragment>
