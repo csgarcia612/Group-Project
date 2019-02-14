@@ -30,7 +30,7 @@ class search_results extends Component {
 
 	handleSearch = () => {
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=20&sort=date,asc`;
-		let filterCriteria = {};
+		// let filterCriteria = {};
 		for (let key in this.state) {
 			// console.log("each key in state", key);
 			// console.log("each value of state key", this.state[key]);
@@ -168,7 +168,7 @@ class search_results extends Component {
 					</div>
 				</div>
 				<div className='events-list'>
-					{eventsList ? eventsList : <h1>Search returned no results</h1>}
+					{eventsList ? eventsList : <h1>Search Returned No Results</h1>}
 				</div>
 				{/* <img className={this.state.loading ? 'loading' : 'loaded'} src='https://media.giphy.com/media/7FfMfPHQr9romeeKtk/giphy.gif' alt='loading'/> */}
 			</div>

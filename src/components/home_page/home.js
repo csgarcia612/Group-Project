@@ -4,7 +4,7 @@ import './home.scss';
 import { connect } from 'react-redux';
 import { setEvents, setCity, getCities } from '../../dux/reducer';
 import { NavLink } from 'react-router-dom';
-import { removeDirectivesFromDocument } from 'apollo-utilities';
+// import { removeDirectivesFromDocument } from 'apollo-utilities';
 
 class home extends Component {
 	constructor() {
@@ -24,7 +24,7 @@ class home extends Component {
 		console.log('keydown event', e.key);
 		console.log('keydown event', e);
 		console.log(this.state.filteredLocations[0]);
-		if (e.key == 'Enter') {
+		if (e.key === 'Enter') {
 			this.searchEvents(this.state.filteredLocations[0]);
 		}
 	};
@@ -107,7 +107,11 @@ class home extends Component {
 
 	render() {
 		console.log('-----closest match', this.state.closestMatch);
-		const { filteredLocations, locations, searchQuery } = this.state;
+		const {
+			filteredLocations
+			// locations,
+			// searchQuery
+		} = this.state;
 		const searchDropDown = filteredLocations.map(e => {
 			return (
 				<NavLink to='/search'>

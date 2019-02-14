@@ -1,5 +1,5 @@
-const axios = require("axios"),
-	index = require('../index');	
+const axios = require('axios'),
+	index = require('../index');
 
 module.exports = {
 	login: (req, res) => {
@@ -9,14 +9,14 @@ module.exports = {
 			client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
 			client_secret: process.env.AUTH0_CLIENT_SECRET,
 			code: req.query.code,
-			grant_type: "authorization_code",
+			grant_type: 'authorization_code',
 			redirect_uri: `http://${req.headers.host}/auth/callback`
 		};
 
 		console.log(payload);
 
 		function codeForAccessToken() {
-			console.log("codeforaccesstoken");
+			console.log('codeforaccesstoken');
 
 			return axios.post(
 				`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`,
@@ -25,7 +25,7 @@ module.exports = {
 		}
 
 		function accessTokenForUserInfo(res) {
-			console.log("accessTokenFOrUserInfo", res.data.access_token);
+			console.log('accessTokenFOrUserInfo', res.data.access_token);
 			return axios.get(
 				`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo?access_token=${
 					res.data.access_token
@@ -34,12 +34,12 @@ module.exports = {
 		}
 
 		function storeUserInfo(response) {
-			console.log("user info", response.data);
+			console.log('user info', response.data);
 			const user = response.data;
 			const db = index.database;
 			return db.get_user_auth0([user.sub]).then(newUser => {
-				console.log('testing',user.sub);
-				
+				console.log('testing', user.sub);
+
 				if (newUser.length) {
 					req.session.user = {
 						user_id: newUser[0].user_id,
@@ -49,13 +49,12 @@ module.exports = {
 						last_name: newUser[0].last_name,
 						email: newUser[0].email,
 						image_url: newUser[0].image_url
-					
 					};
-					res.redirect("/");
+					res.redirect('/');
 				} else {
-					let splitName = user.name.split(" ");
+					let splitName = user.name.split(' ');
 					if (splitName.length === 1) {
-						splitName.push("Melody");
+						splitName.push('Melody');
 					}
 					return db
 						.create_user([
@@ -64,15 +63,15 @@ module.exports = {
 							splitName[0],
 							splitName[1],
 							user.email,
-							user.image_url
+							user.image_url || user.picture
 						])
 						.then(newlyCreateUser => {
 							req.session.user = newlyCreateUser[0];
 							// console.log("req.session", req.session)
-							res.redirect("/");
+							res.redirect('/');
 						})
 						.catch(error => {
-							console.log(("error in create_user", error));
+							console.log(('error in create_user', error));
 						});
 				}
 			});
@@ -82,8 +81,8 @@ module.exports = {
 			.then(accessTokenForUserInfo)
 			.then(storeUserInfo)
 			.catch(error => {
-				console.log("error in login route", error);
-				res.status(500).send("something went wrong on the server.");
+				console.log('error in login route', error);
+				res.status(500).send('something went wrong on the server.');
 			});
 	}
 };

@@ -12,6 +12,7 @@ class Header extends Component {
 			showMenu: false
 		};
 		this.login = this.login.bind(this);
+		this.addClassFunOne = this.addClassFunOne.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,11 +41,11 @@ class Header extends Component {
 		});
 	};
 
-	toggleMenu = () => {
+	addClassFunOne() {
 		this.setState({
 			showMenu: !this.state.showMenu
 		});
-	};
+	}
 
 	render() {
 		const { user } = this.props;
@@ -60,11 +61,21 @@ class Header extends Component {
 						<p className='header-name'>MELO-TREE</p>
 					</div>
 				</NavLink>
-				<div className='menu-container'>
-					<button className='display-menu-button' onClick={this.toggleMenu}>
-						Menu
-					</button>
+				<div
+					class={this.state.showMenu ? 'menuOne clickMenuOne' : 'menuOne'}
+					onClick={this.addClassFunOne}
+				>
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
 				</div>
+
 				<div
 					className={
 						this.state.showMenu ? 'show-menu-container' : 'hide-menu-container'
@@ -74,7 +85,7 @@ class Header extends Component {
 						<>
 							<ul>
 								<li>
-									<a href={`/user/${user.username}`}>{user.first_name}</a>
+									<a href='/profile'>{user.first_name}</a>
 								</li>
 								<li>
 									<a href='/contact'>Contact</a>
@@ -83,7 +94,7 @@ class Header extends Component {
 									<a href='/about'>About</a>
 								</li>
 							</ul>
-							<div className='log-btn-container'>
+							<div className='log-button-container'>
 								<button className='logout-button' onClick={this.logout}>
 									Logout
 								</button>

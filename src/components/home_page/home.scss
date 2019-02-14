@@ -11,19 +11,20 @@
 .home-container {
 	display: flex;
 	position: relative;
-	// justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	height: 100%;
+	height: calc(100vh - 35px);
 	width: 100%;
 	img {
 		display: flex;
 		position: relative;
 		height: 300px;
+		top: 25px;
 	}
 	.search-box {
 		display: flex;
 		position: relative;
+		top: 25px;
 		cursor: pointer;
 		::placeholder {
 			color: rgba(246, 207, 143, 0.411);
@@ -38,12 +39,13 @@
 			outline: none;
 			cursor: pointer;
 			background-color: rgba(150, 117, 122, 0.9);
-			border: rgba(51, 1, 54, 0.9);
 			border-style: solid;
 			border-width: 1.5px;
+			border: rgba(51, 1, 54, 0.9);
 			border-radius: 5px;
 			box-shadow: #5e1742 0px 0px 5px, #5e1742 0px 0px 10px,
-				#5e1742 0px 0px 15px;
+				#5e1742 0px 0px 15px, #5e1742 0px 0px 20px, #5e1742 0px 0px 30px,
+				#5e1742 0px 0px 40px;
 			font-size: 20px;
 			color: rgb(246, 206, 143);
 			padding-left: 10px;
@@ -62,10 +64,12 @@
 	}
 	.dropdown-menu {
 		display: flex;
+		position: relative;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		justify-content: flex-start;
+		top: 25px;
 		flex-wrap: nowrap;
 		max-height: 300px;
 		overflow: scroll;

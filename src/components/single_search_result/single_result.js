@@ -9,11 +9,51 @@ class SingleResult extends Component {
 
 	render() {
 		const { event } = this.props;
-		let splitEventName = event.name.split(', ');
+		console.log('event', event);
+		let splitEventName = event.name
+			.replace(/ [(]/g, ',')
+			.split('Plus')
+			.join(',')
+			.split('With')
+			.join(',')
+			.split('-')
+			.join(',')
+			.split(',');
+
+		let splitAttractionName =
+			event._embedded.attractions &&
+			event._embedded.attractions[0].name
+				.replace(/ [(]/g, ',')
+				.split('Plus')
+				.join(',')
+				.split('With')
+				.join(',')
+				.split('-')
+				.join(',')
+				.split(',');
+
+		let splitVenueName =
+			event._embedded.venues &&
+			event._embedded.venues[0].name
+				.split(' at ')
+				.join(',')
+				.split(',')
+				.join(':');
+
+		console.log('venueName B4 : substring', splitVenueName);
+
+		splitVenueName = splitVenueName.indexOf(':')
+			? splitVenueName.substring(splitVenueName.indexOf(':') + 1)
+			: splitVenueName;
+
+		console.log('splitVenue', splitVenueName);
+
 		let mainArtistName = event._embedded.attractions
-			? event._embedded.attractions[0].name
+			? splitAttractionName[0]
 			: splitEventName[0];
+
 		let splitDate = event.dates.start.localDate.split('-');
+
 		let monthAbrvs = [
 			null,
 			'JAN',
@@ -60,9 +100,15 @@ class SingleResult extends Component {
 					/>
 					<div className='mini-event-info-container'>
 						<div className='mini-event-name-container'>
-							<p className='mini-event-name'>{mainArtistName}</p>
+							<p className='mini-event-name'>
+								{mainArtistName && mainArtistName.length > 50
+									? mainArtistName.substring(0, 50) + '...'
+									: mainArtistName}
+							</p>
 							<p className='mini-venue-name'>
-								{event._embedded.venues[0].name}
+								{event._embedded.venues[0] && splitVenueName > 33
+									? splitVenueName.substring(0, 33) + '...'
+									: splitVenueName}
 							</p>
 						</div>
 						<div className='mini-event-date-container'>
