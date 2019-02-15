@@ -122,7 +122,7 @@
 				color: rgb(246, 206, 143);
 				border: none;
 				height: 15vh;
-				width: 15vw;
+				width: 12vw;
 				text-align: center;
 			}
 			
@@ -136,6 +136,9 @@
 			input::-webkit-inner-spin-button {
 				display: none;
 				-webkit-appearance: none;
+			}
+			input::-webkit-calendar-picker-indicator {
+				font-size: 18px;
 			}
 			// .input-field {
 			// 	background-color: white;
