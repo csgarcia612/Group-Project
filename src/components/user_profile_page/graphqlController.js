@@ -38,6 +38,27 @@ mutation deleteAddress($address_id: ID!) {
     address_id
   }
   } `
+
+export const DELETE_USER = gql`
+mutation deleteUser($auth0_id: String!) {
+  deleteUser(auth0_id: $auth0_id){
+    auth0_id
+  }
+  } `
+
+export const UPDATE_USER = gql`
+  mutation updateUser($input: updateUser! ){
+    userUpdate(input: $input){
+      username
+      first_name
+      last_name
+      email
+      image_url
+    }
+  }
+`
+
+
   
 
     
