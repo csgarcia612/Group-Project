@@ -21,9 +21,10 @@ class home extends Component {
 	}
 
 	onKeyDown = e => {
-		if (e.key == 'Enter' && this.state.filteredLocations) {
+		if (e.key == 'Enter' && this.state.filteredLocations.length) {
 			this.searchEvents(this.state.filteredLocations[0]);
 		}
+		return;
 	};
 
 	getCities = () => {
