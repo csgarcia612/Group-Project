@@ -5,7 +5,7 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { setEvents, setCity, getCities } from '../../dux/reducer';
 import SingleResult from '../single_search_result/single_result';
-import arrow from './icons8-sort-down-24.png'
+import arrow from './icons8-sort-down-24.png';
 
 class search_results extends Component {
 	constructor(props) {
@@ -20,13 +20,13 @@ class search_results extends Component {
 				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF',
 			filterToggle: false,
 			filteredLocations: null,
-			searchQuery: null,
+			searchQuery: null
 		};
 	}
 
 	componentDidMount() {
 		this.getCities();
-		console.log('props on searchresults', this.props)
+		console.log('props on searchresults', this.props);
 	}
 
 	getCities = () => {
@@ -104,34 +104,40 @@ class search_results extends Component {
 		});
 	};
 
-	handleFilterToggle = (initialState) => {
+	handleFilterToggle = initialState => {
 		this.setState({
 			filterToggle: !this.state.filterToggle
-		})
-		if(this.state.filterToggle === false){
+		});
+		if (this.state.filterToggle === false) {
 			this.setState({
 				...initialState
-			})
+			});
 		}
-	}
+	};
 
 	render() {
-		const searchDropDown = this.state.filteredLocations && this.state.filteredLocations.map(e => {
-			return (
-				<NavLink to='/search'>
-					<div
-						key={e.rank}
-						name='search'
-						// onClick={}
-						className={this.state.filteredLocations.length > 0 ? 'search-dropdown' : 'filters-off'}
-					>
-						<p>
-							{e.city}, {e.state}
-						</p>
-					</div>
-				</NavLink>
-			);
-		});
+		const searchDropDown =
+			this.state.filteredLocations &&
+			this.state.filteredLocations.map(e => {
+				return (
+					<NavLink to='/search'>
+						<div
+							key={e.rank}
+							name='search'
+							// onClick={}
+							className={
+								this.state.filteredLocations.length > 0
+									? 'search-dropdown'
+									: 'filters-off'
+							}
+						>
+							<p>
+								{e.city}, {e.state}
+							</p>
+						</div>
+					</NavLink>
+				);
+			});
 		const initialState = {
 			city: this.props.city,
 			startDateTime: null,
@@ -173,10 +179,19 @@ class search_results extends Component {
 						{this.state.filteredLocations && searchDropDown}
 					</div>
 					<p>Filters</p>
-					<img src={arrow} onClick={() => this.handleFilterToggle(initialState)} className={this.state.filterToggle ? "buttonOn" : "buttonOff"}/>
+					<img
+						src={arrow}
+						alt='arrow'
+						onClick={() => this.handleFilterToggle(initialState)}
+						className={this.state.filterToggle ? 'buttonOn' : 'buttonOff'}
+					/>
 				</div>
 				<div className={this.state.filterToggle ? 'filters' : 'filters-off'}>
-					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
+					<div
+						className={
+							this.state.filterToggle ? 'filter-container' : 'filters-off'
+						}
+					>
 						<h2>Start Date</h2>
 						<input
 							name='startDateTime'
@@ -184,7 +199,11 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
+					<div
+						className={
+							this.state.filterToggle ? 'filter-container' : 'filters-off'
+						}
+					>
 						<h2>End Date</h2>
 						<input
 							name='endDateTime'
@@ -192,7 +211,11 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
+					<div
+						className={
+							this.state.filterToggle ? 'filter-container' : 'filters-off'
+						}
+					>
 						<h2>Distance</h2>
 						<input
 							type='number'
@@ -204,7 +227,11 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
+					<div
+						className={
+							this.state.filterToggle ? 'filter-container' : 'filters-off'
+						}
+					>
 						<h2>Genre</h2>
 						<select name='genreId' onChange={e => this.handleUserInput(e)}>
 							<option value='KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'>
@@ -233,7 +260,11 @@ class search_results extends Component {
 							<option value='KnvZfZ7vAeF'>World</option>
 						</select>
 					</div>
-					<div className={this.state.filterToggle ? 'filter-container' : 'filters-off'}>
+					<div
+						className={
+							this.state.filterToggle ? 'filter-container' : 'filters-off'
+						}
+					>
 						<button onClick={() => this.setState({ ...initialState })}>
 							Clear
 						</button>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './user_profile.scss';
 import { GET_USER, DELETE_ADDRESS, NEW_ADDRESS } from './graphqlController';
 import { Query, Mutation } from 'react-apollo';
 import { connect } from 'react-redux';
@@ -45,7 +46,7 @@ class UserProfile extends Component {
 					return (
 						<>
 							<div className='user-image-container'>
-								<img src={data.user.image_url} />
+								<img src={data.user.image_url} alt='User Imagery' />
 							</div>
 							<div className='user-info-container'>
 								<p>{data.user.username}</p>

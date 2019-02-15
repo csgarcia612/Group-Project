@@ -33,10 +33,10 @@ class home extends Component {
 			)
 			.then(locations => {
 				this.props.getCities(locations.data);
-			})
-			// .catch(error => {
-			// 	console.log('error in getCities', error)
-			// })
+			});
+		// .catch(error => {
+		// 	console.log('error in getCities', error)
+		// })
 	};
 
 	handleSearch = e => {
@@ -80,7 +80,7 @@ class home extends Component {
 		let customSearch = baseSearch + '&city=' + e.city;
 		this.props.setCity(e.city);
 		axios.get(customSearch).then(response => {
-			if(response.data.page.totalElements === 0){
+			if (response.data.page.totalElements === 0) {
 				this.props.setEvents(null);
 			} else {
 				this.props.setEvents(response.data);
@@ -106,7 +106,7 @@ class home extends Component {
 	};
 
 	render() {
-		console.log('-----closest match', this.state.closestMatch);
+		// console.log('-----closest match', this.state.closestMatch);
 		const {
 			filteredLocations
 			// locations,

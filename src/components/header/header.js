@@ -62,7 +62,7 @@ class Header extends Component {
 					</div>
 				</NavLink>
 				<div
-					class={this.state.showMenu ? 'menuOne clickMenuOne' : 'menuOne'}
+					className={this.state.showMenu ? 'menuOne clickMenuOne' : 'menuOne'}
 					onClick={this.addClassFunOne}
 				>
 					<span />
@@ -85,7 +85,10 @@ class Header extends Component {
 						<>
 							<ul>
 								<li>
-									<a href='/profile'>{user.first_name}</a>
+									<p>{user.first_name}</p>
+								</li>
+								<li>
+									<a href='/profile'>Profile</a>
 								</li>
 								<li>
 									<a href='/contact'>Contact</a>

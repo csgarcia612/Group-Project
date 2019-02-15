@@ -132,7 +132,7 @@ class EventDetails extends Component {
 			singleEvent &&
 			singleEvent._embedded.attractions &&
 			(singleEvent._embedded.attractions.length > 1
-				? 'WITH SPECIAL GUEST(S)'
+				? 'with Special Guest(s)'
 				: null);
 
 		let guestList =
@@ -192,59 +192,87 @@ class EventDetails extends Component {
 							alt='Single Event Imagery'
 						/>
 					</div>
-					<p className='event-name'>{singleEvent.name}</p>
-					<div className='event-details-info-container'>
-						<div className='event-venue-info-container'>
+					<div className='all-event-info'>
+						<div className='event-name-container'>
+							<p className='event-name'>{singleEvent.name}</p>
+						</div>
+						<div className='event-details-info-container'>
 							<div className='event-date-time-container'>
 								<p className='event-date'>{this.getDate()}</p>
 								<p className='event-time'>{this.getTime()}</p>
 							</div>
-							<p className='venue-name'>
-								{singleEvent._embedded.venues[0].name}
-							</p>
-							<div className='venue-address-container'>
-								<p className='venue-street-address'>
-									{singleEvent._embedded.venues[0].address.line1}
-								</p>
-								<p className='venue-city-state-zip'>
-									{`${singleEvent._embedded.venues[0].city.name}, ${
-										singleEvent._embedded.venues[0].state.stateCode
-									} ${singleEvent._embedded.venues[0].postalCode}`}
-								</p>
+							<div className='event-artist-info-container'>
+								<div className='main-artist-container'>
+									<p className='venue-presents'>
+										{singleEvent._embedded.venues[0].name}
+									</p>
+									<p className='proudly-presents'>Proudly Presents</p>
+									<p className='artist-name'>{mainArtistName}</p>
+								</div>
+								<div
+									className={
+										singleEvent &&
+										singleEvent._embedded.attractions &&
+										singleEvent._embedded.attractions.length > 1
+											? 'show-special-guests'
+											: 'hide-special-guests'
+									}
+								>
+									<p className='special-guest'>{specialGuests}</p>
+									{guestList}
+								</div>
+							</div>
+							<div className='event-venue-container'>
+								<div className='venue-map-container'>
+									<iframe
+										title='event-venue-location'
+										width='350'
+										height='350'
+										src={`https://www.google.com/maps/embed/v1/place?q=${location}&key=${
+											process.env.REACT_APP_GOOGLE_API_KEY
+										}`}
+									/>
+								</div>
+								<div className='event-venue-info-container'>
+									<p className='venue-name'>
+										{singleEvent._embedded.venues[0].name}
+									</p>
+									<div className='venue-address-container'>
+										<p className='venue-street-address'>
+											{singleEvent._embedded.venues[0].address.line1}
+										</p>
+										<p className='venue-city-state-zip'>
+											{`${singleEvent._embedded.venues[0].city.name}, ${
+												singleEvent._embedded.venues[0].state.stateCode
+											} ${singleEvent._embedded.venues[0].postalCode}`}
+										</p>
+									</div>
+								</div>
+							</div>
+							<div className='event-purchase-container'>
+								<p className='ticket-price'>Ticket Price: ${ticketPrice}.00</p>
+								{this.props.user ? (
+									<button
+										className='purchase-tickets-button'
+										onClick={this.toggleModal}
+									>
+										Purchase Tickets
+									</button>
+								) : (
+									<p className='login-to-purchase'>
+										Please Login To Purchase Tickets
+									</p>
+								)}
 							</div>
 						</div>
-						<div className='event-artist-info-container'>
-							<p className='starring'>STARRING</p>
-							<p className='artist-name'>{mainArtistName}</p>
-							<div
-								className={
-									singleEvent &&
-									singleEvent._embedded.attractions &&
-									singleEvent._embedded.attractions.length > 1
-										? 'show-special-guests'
-										: 'hide-special-guests'
-								}
-							>
-								<p className='special-guest'>{specialGuests}</p>
-								{guestList}
-							</div>
-						</div>
-					</div>
-					<iframe
-						width='400'
-						height='400'
-						src={`https://www.google.com/maps/embed/v1/place?q=${location}&key=${
-							process.env.REACT_APP_GOOGLE_API_KEY
-						}`}
-					/>
-					<div className='event-purchase-container'>
-						<p className='ticket-price'>Price: ${ticketPrice}.00</p>
-						<button onClick={this.toggleModal}>Purchase Tickets</button>
 					</div>
 				</div>
 			</div>
 		) : (
-			<div>please log in</div>
+			<div>
+				<p>LOADING...</p>
+				<img src='' alt='Loading Animated GIF' />
+			</div>
 		);
 	}
 }
