@@ -56,6 +56,7 @@ module.exports = {
             userUpdate(input: updateUser!): Users
             addressUpdate(input: updateAddress!): Addresses
             deleteAddress(address_id: ID!): Addresses
+            deleteUser(auth0_id: String!): Users
             
         }
 
@@ -117,13 +118,14 @@ module.exports = {
                 const db = index.database
                 const user = await db.update_user({user_id, username, first_name, last_name, email, image_url}).then(response => response[0])
                 
-                    user.address = {
-                        address_one: user.address_one,
-                        address_two: user.address_two,
-                        city: user.address_city, 
-                        state: user.address_state,
-                        zipcode: user.address_zipcode
-                }
+                //     user.address = {
+                //         address_id: user.address_id,
+                //         address_one: user.address_one,
+                //         address_two: user.address_two,
+                //         city: user.address_city, 
+                //         state: user.address_state,
+                //         zipcode: user.address_zipcode
+                // }
                 return user
             
             }catch(error){ 
@@ -174,6 +176,18 @@ module.exports = {
             }catch(error){ 
                 console.log('error in delete address', error)
                 throw new Error(error.message)
+            }
+        },
+
+        deleteUser: async ({auth0_id}) => {
+            try { 
+                const db = index.database
+                const deleteUser = await db.delete_user([auth0_id])
+                return deleteUser
+            }catch(error){
+                console.log('error in delete user'), error
+                throw new Error(error.message)
+                
             }
         }
 
