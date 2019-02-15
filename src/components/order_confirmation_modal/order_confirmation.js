@@ -227,9 +227,10 @@ class OrderConfirmation extends Component {
 									} ${
 										this.props.purchaseInfo.event._embedded.venues[0].postalCode
 									}`}</p>
-									<p className='modal-venue-phone'>{`${this.props.purchaseInfo
-										.event._embedded.venues[0].boxOfficeInfo
-										.phoneNumberDetail &&
+									<p className='modal-venue-phone'>{`${this.props
+										.purchaseInfo &&
+										this.props.purchaseInfo.event._embedded.venues[0]
+											.boxOfficeInfo &&
 										this.props.purchaseInfo.event._embedded.venues[0]
 											.boxOfficeInfo.phoneNumberDetail}`}</p>
 								</div>

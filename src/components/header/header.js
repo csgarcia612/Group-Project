@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { setUser } from '../../dux/reducer';
 import './header.scss';
+import headerMiniTree from '../../images/musictreeheader.png';
 
 class Header extends Component {
 	constructor() {
@@ -55,7 +56,7 @@ class Header extends Component {
 					<div className='header-logo-container'>
 						<img
 							className='header-logo'
-							src='./images/musictreeheader.png'
+							src={headerMiniTree}
 							alt='Tree with music notes as leaves'
 						/>
 						<p className='header-name'>MeloTree</p>
@@ -90,9 +91,9 @@ class Header extends Component {
 								<li>
 									<a href='/profile'>Profile</a>
 								</li>
-								<li>
+								{/* <li>
 									<a href='/contact'>Contact</a>
-								</li>
+								</li> */}
 								<li>
 									<a href='/about'>About</a>
 								</li>
