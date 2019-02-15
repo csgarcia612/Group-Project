@@ -9,7 +9,7 @@ class SingleResult extends Component {
 
 	render() {
 		const { event } = this.props;
-		console.log('event', event);
+		// console.log('event', event);
 		let splitEventName = event.name
 			.replace(/ [(]/g, ',')
 			.split('Plus')
@@ -40,13 +40,13 @@ class SingleResult extends Component {
 				.split(',')
 				.join(':');
 
-		console.log('venueName B4 : substring', splitVenueName);
+		// console.log('venueName B4 : substring', splitVenueName);
 
 		splitVenueName = splitVenueName.indexOf(':')
 			? splitVenueName.substring(splitVenueName.indexOf(':') + 1)
 			: splitVenueName;
 
-		console.log('splitVenue', splitVenueName);
+		// console.log('splitVenue', splitVenueName);
 
 		let mainArtistName = event._embedded.attractions
 			? splitAttractionName[0]

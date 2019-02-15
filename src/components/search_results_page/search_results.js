@@ -18,7 +18,7 @@ class search_results extends Component {
 			radius: 50,
 			genreId:
 				'KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF',
-			filterToggle: false,
+			filterToggle: true,
 			filteredLocations: null,
 			searchQuery: null
 		};
@@ -39,11 +39,16 @@ class search_results extends Component {
 			});
 	};
 
-	onKeyDown = e => {
-		if (e.key == 'Enter') {
-			this.handleSearch(this.state.filteredLocations[0]);
-		}
-	};
+	// onKeyDown = e => {
+	// 	console.log('===========',this.state.filteredLocations)
+	// 	this.props.setCity(this.state.filteredLocations && this.state.filteredLocations[0].city)
+	// 	this.setState({
+	// 		city: this.props.city
+	// 	})
+	// 	if (e.key == 'Enter') {
+	// 		this.handleSearch(this.state.filteredLocations[0]);
+	// 	}
+	// };
 
 	handleQuery = e => {
 		if (e.target.value.match(/\W/) && !e.target.value.match(/\s/)) {
@@ -63,6 +68,7 @@ class search_results extends Component {
 	};
 
 	handleSearch = () => {
+		console.log('city in handlesearch', this.props.city);
 		let searchQuery = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=eIMh2CGNhtUTSybN21TU3JRes1j9raV3&classificationName=[music]&size=20&sort=date,asc`;
 		// let filterCriteria = {};
 		for (let key in this.state) {
@@ -79,13 +85,16 @@ class search_results extends Component {
 		axios
 			.get(searchQuery)
 			.then(response => {
-				// console.log("response.data in searchquery response", response.data);
+				console.log('response.data in searchquery response', response.data);
 				if (response.data.page.totalElements === 0) {
 					this.props.setEvents(null);
 				} else {
 					this.props.setEvents(response.data);
-					this.state.city && this.props.setCity(this.state.city);
+					this.state.city && this.props.setCity(this.props.city);
 				}
+				this.setState({
+					filteredLocations: null
+				});
 			})
 			.catch(error => {
 				console.log('---error in search', error);
@@ -99,8 +108,7 @@ class search_results extends Component {
 			return e.city.match(searchFilter) || e.state.match(searchFilter);
 		});
 		this.setState({
-			filteredLocations,
-			closestMatch: filteredLocations[0]
+			filteredLocations
 		});
 	};
 
@@ -164,18 +172,17 @@ class search_results extends Component {
 		return (
 			<div className='search-results-container'>
 				<div className='search-bar'>
-					<div>
+					{/* <div>
 						<input
-							readOnly
 							type='text'
 							className='input-field'
 							name='city'
 							placeholder={this.state.city}
 							onChange={e => this.handleQuery(e)}
-							onKeyDown={e => this.onKeyDown(e)}
+							// onKeyDown={e => this.onKeyDown(e)}
 						/>
-					</div>
-					<div className='dropdown-menu'>
+					</div> */}
+					{/* <div className='dropdown-menu'>
 						{this.state.filteredLocations && searchDropDown}
 					</div>
 					<p className='search-filter-title'>Search Filters</p>
@@ -184,40 +191,26 @@ class search_results extends Component {
 						alt='arrow'
 						onClick={() => this.handleFilterToggle(initialState)}
 						className={this.state.filterToggle ? 'buttonOn' : 'buttonOff'}
-					/>
+					/> */}
 				</div>
-				<div
-					className={this.state.filterToggle ? 'show-filters' : 'hide-filters'}
-				>
-					<div
-						className={
-							this.state.filterToggle ? 'filter-container' : 'filters-off'
-						}
-					>
-						<h2>Start Date</h2>
+				<div className={'filters'}>
+					<div className={'filter-container'}>
+						<h2>From</h2>
 						<input
 							name='startDateTime'
 							type='date'
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div
-						className={
-							this.state.filterToggle ? 'filter-container' : 'filters-off'
-						}
-					>
-						<h2>End Date</h2>
+					<div className={'filter-container'}>
+						<h2>To</h2>
 						<input
 							name='endDateTime'
 							type='date'
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div
-						className={
-							this.state.filterToggle ? 'filter-container' : 'filters-off'
-						}
-					>
+					<div className={'filter-container'}>
 						<h2>Distance</h2>
 						<input
 							type='number'
@@ -229,11 +222,7 @@ class search_results extends Component {
 							onChange={e => this.handleUserInput(e)}
 						/>
 					</div>
-					<div
-						className={
-							this.state.filterToggle ? 'filter-container' : 'filters-off'
-						}
-					>
+					<div className={'filter-container'}>
 						<h2>Genre</h2>
 						<select name='genreId' onChange={e => this.handleUserInput(e)}>
 							<option value='KnvZfZ7vAvv,KnvZfZ7vAve,KnvZfZ7vAvd,KnvZfZ7vAvA,KnvZfZ7vAvk,KnvZfZ7vAeJ,KnvZfZ7vAv6,KnvZfZ7vAvF,KnvZfZ7vAva,KnvZfZ7vAv1,KnvZfZ7vAvJ,KnvZfZ7vAvE,KnvZfZ7vAvI,KnvZfZ7vAvt,KnvZfZ7vAvn,KnvZfZ7vAvl,KnvZfZ7vAev,KnvZfZ7vAee,KnvZfZ7vAed,KnvZfZ7vAe7,KnvZfZ7vAeA,KnvZfZ7vAeF'>
@@ -262,11 +251,7 @@ class search_results extends Component {
 							<option value='KnvZfZ7vAeF'>World</option>
 						</select>
 					</div>
-					<div
-						className={
-							this.state.filterToggle ? 'filter-container' : 'filters-off'
-						}
-					>
+					<div className={'filter-container'}>
 						<button onClick={() => this.setState({ ...initialState })}>
 							Clear
 						</button>
