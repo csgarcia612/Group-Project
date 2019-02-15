@@ -171,7 +171,7 @@ class search_results extends Component {
 		// console.log("state", this.state);
 		return (
 			<div className='search-results-container'>
-				<div className='search-bar'>
+				{/* <div className='search-bar'> */}
 					{/* <div>
 						<input
 							type='text'
@@ -192,7 +192,7 @@ class search_results extends Component {
 						onClick={() => this.handleFilterToggle(initialState)}
 						className={this.state.filterToggle ? 'buttonOn' : 'buttonOff'}
 					/> */}
-				</div>
+				{/* </div> */}
 				<div className={'filters'}>
 					<div className={'filter-container'}>
 						<h2>From</h2>
@@ -251,11 +251,12 @@ class search_results extends Component {
 							<option value='KnvZfZ7vAeF'>World</option>
 						</select>
 					</div>
-					<div className={'filter-container'}>
-						<button onClick={() => this.setState({ ...initialState })}>
+					<div className={'filter-container'} onClick={this.handleSearch}>
+						{/* <button onClick={() => this.setState({ ...initialState })}>
 							Clear
-						</button>
-						<button onClick={this.handleSearch}>Search</button>
+						</button> */}
+						{/* <button >Search</button> */}
+						<p>GO</p>
 					</div>
 				</div>
 				<div className='events-list'>
