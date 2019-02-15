@@ -19,12 +19,12 @@
 		display: flex;
 		position: relative;
 		height: 300px;
-		top: 30px;
+		top: 18px;
 	}
 	.search-box {
 		display: flex;
 		position: relative;
-		top: 30px;
+		top: 18px;
 		cursor: pointer;
 		::placeholder {
 			color: rgba(246, 207, 143, 0.411);
@@ -35,7 +35,6 @@
 			position: relative;
 			width: 500px;
 			z-index: 2;
-			padding-left: 10px;
 			outline: none;
 			cursor: pointer;
 			background-color: rgba(150, 117, 122, 0.9);
@@ -48,8 +47,7 @@
 				#5e1742 0px 0px 40px;
 			font-size: 20px;
 			color: rgb(246, 206, 143);
-			padding-left: 10px;
-			outline: none;
+			text-align: center;
 		}
 
 		svg {
@@ -69,7 +67,7 @@
 		justify-content: center;
 		align-items: center;
 		justify-content: flex-start;
-		top: 25px;
+		top: 21px;
 		flex-wrap: nowrap;
 		max-height: 300px;
 		overflow: scroll;

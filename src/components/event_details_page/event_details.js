@@ -149,6 +149,8 @@ class EventDetails extends Component {
 
 		guestList && guestList.splice(0, 1);
 
+		let guestArtistArray = singleEvent && singleEvent._embedded.attractions;
+
 		let highestWidthPicture =
 			singleEvent &&
 			Math.max.apply(
@@ -168,9 +170,11 @@ class EventDetails extends Component {
 		let purchaseProps = singleEvent && {
 			event: singleEvent,
 			artist: mainArtistName,
+			guestArtists: guestArtistArray,
 			ticketPrice: ticketPrice,
 			date: this.getDate(),
-			time: this.getTime()
+			time: this.getTime(),
+			guestTitle: specialGuests
 		};
 
 		return singleEvent ? (
@@ -226,11 +230,12 @@ class EventDetails extends Component {
 								<div className='venue-map-container'>
 									<iframe
 										title='event-venue-location'
-										width='350'
-										height='350'
 										src={`https://www.google.com/maps/embed/v1/place?q=${location}&key=${
 											process.env.REACT_APP_GOOGLE_API_KEY
 										}`}
+										width='400'
+										height='300'
+										seamless={true}
 									/>
 								</div>
 								<div className='event-venue-info-container'>

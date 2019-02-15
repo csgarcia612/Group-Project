@@ -88,7 +88,6 @@ class SingleResult extends Component {
 
 		return (
 			<div className='mini-event-container'>
-			
 				<div className='mini-event-image-container'>
 					<img
 						className='mini-event-image'
@@ -99,9 +98,7 @@ class SingleResult extends Component {
 						}}
 						alt='Event Poster Graphic'
 					/>
-				
-				
-				
+
 					<div className='mini-event-info-container'>
 						<div className='mini-event-name-container'>
 							<p className='mini-event-name'>
@@ -123,7 +120,6 @@ class SingleResult extends Component {
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		);
 	}

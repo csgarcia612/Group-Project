@@ -11,7 +11,7 @@ class Footer extends Component {
 		return (
 			<div className='footer-container'>
 				<div className='footer-slogan-container'>
-					<p className='footer-slogan'>SEARCH THIS TREE, FOR A MELODY</p>
+					<p className='footer-slogan'>Search This Tree, For a Melody</p>
 				</div>
 				<div className='social-icons-container'>
 					<a href='https://www.facebook.com/'>

@@ -6,6 +6,7 @@
 	bottom: 0px;
 	width: 100%;
 	height: 35px;
+	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
 	// background-color: rgb(94, 23, 66);
@@ -16,13 +17,13 @@
 	.footer-slogan-container {
 		display: flex;
 		flex-direction: row;
-		height: 100%;
 		width: auto;
 		color: rgb(246, 206, 143);
 
 		.footer-slogan {
-			font-size: 20px;
-			margin: 5px;
+			font-family: 'Euphoria Script', cursive;
+			font-size: 32px;
+			margin-bottom: 5px;
 		}
 	}
 

@@ -9,10 +9,11 @@
 
 	.show-modal {
 		display: flex;
-		position: absolute;
+		position: fixed;
 		z-index: 250;
 		width: 100%;
-		// height: calc(100% - 35px);
+		height: calc(100vh - 35px);
+		top: 35px;
 		background: rgba(150, 117, 122, 0.9);
 		justify-content: center;
 		align-items: center;
@@ -191,7 +192,15 @@
 						display: flex;
 						position: relative;
 						justify-content: center;
-						align-items: center;
+						align-content: center;
+						margin-left: 20px;
+						border-radius: 15px;
+						overflow: hidden;
+
+						iframe {
+							display: flex;
+							overflow: hidden;
+						}
 					}
 
 					.event-venue-info-container {

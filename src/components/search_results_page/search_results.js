@@ -178,7 +178,7 @@ class search_results extends Component {
 					<div className='dropdown-menu'>
 						{this.state.filteredLocations && searchDropDown}
 					</div>
-					<p>Filters</p>
+					<p className='search-filter-title'>Search Filters</p>
 					<img
 						src={arrow}
 						alt='arrow'
@@ -186,7 +186,9 @@ class search_results extends Component {
 						className={this.state.filterToggle ? 'buttonOn' : 'buttonOff'}
 					/>
 				</div>
-				<div className={this.state.filterToggle ? 'filters' : 'filters-off'}>
+				<div
+					className={this.state.filterToggle ? 'show-filters' : 'hide-filters'}
+				>
 					<div
 						className={
 							this.state.filterToggle ? 'filter-container' : 'filters-off'

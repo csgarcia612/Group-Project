@@ -55,10 +55,10 @@ class Header extends Component {
 					<div className='header-logo-container'>
 						<img
 							className='header-logo'
-							src='./images/music-tree5.png'
+							src='./images/musictreeheader.png'
 							alt='Tree with music notes as leaves'
 						/>
-						<p className='header-name'>MELO-TREE</p>
+						<p className='header-name'>MeloTree</p>
 					</div>
 				</NavLink>
 				<div

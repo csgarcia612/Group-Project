@@ -23,21 +23,22 @@
 			justify-content: center;
 			align-items: center;
 			height: 100%;
-			margin: 5px 10px 0px 10px;
+			margin: 10px 0px 0px 15px;
 			color: rgb(246, 206, 143);
 
 			.header-logo {
 				display: flex;
 				height: 35px;
+				// background-color: rgba(246, 206, 143, 0.5);
+				// border-radius: 50%;
 			}
 
 			.header-name {
 				display: flex;
-				font-size: 20px;
-				font-weight: bold;
-				font-family: sans-serif;
-				letter-spacing: 2px;
-				margin: 10px;
+				font-family: 'Euphoria Script', cursive;
+				font-size: 40px;
+				margin-top: 5px;
+				margin-left: 10px;
 			}
 		}
 	}

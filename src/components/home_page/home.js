@@ -130,7 +130,7 @@ class home extends Component {
 		return (
 			<div className='home-container'>
 				<img
-					src='./images/music-tree5.png'
+					src='./images/musictree2.png'
 					alt='Tree with music notes as leaves'
 				/>
 				<div className='search-box'>
@@ -139,7 +139,7 @@ class home extends Component {
 						className='home-search-input'
 						onChange={e => this.handleSearch(e)}
 						value={this.state.searchQuery}
-						placeholder='Enter your city'
+						placeholder='Search by City or State'
 					/>
 					<svg
 						version='1.1'
