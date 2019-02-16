@@ -61,23 +61,24 @@ class UserProfile extends Component {
 						: 'Please Log In';
 					return (
 						<>
-							<div className='user-image-container'>
-								<img src={data.user.image_url} alt='User Imagery' />
-							</div>
+							
 							<div className='user-info-container'>
-								<p>{data.user.username}</p>
-								<p>{data.user.first_name}</p>
-								<p>{data.user.last_name}</p>
-								<p>{data.user.email}</p>
+								<img src={data.user.image_url}  alt='User Imagery' />
+								<div className='p-tag-container'>
+								<p className='p-tag'>{data.user.username}</p>
+								<p className='p-tag'>{data.user.first_name}</p>
+								<p className='p-tag'>{data.user.last_name}</p>
+								<p className='p-tag'>{data.user.email}</p>
 								{data.user.address && (
 									<>
-										<p>{data.user.address.address_one}</p>
-										<p>{data.user.address.address_two}</p>
-										<p>{data.user.address.city}</p>
-										<p>{data.user.address.state}</p>
-										<p>{data.user.address.zipcode}</p>
+										<p className='p-tag'>{data.user.address.address_one}</p>
+										<p className='p-tag'>{data.user.address.address_two}</p>
+										<p className='p-tag'>{data.user.address.city}</p>
+										<p className='p-tag'>{data.user.address.state}</p>
+										<p className='p-tag'>{data.user.address.zipcode}</p>
 									</>
 								)}
+								</div>
 							</div>
 						</>
 					);
@@ -217,7 +218,7 @@ class UserProfile extends Component {
 				</div>
 				{!editingState && (
 					<React.Fragment>
-						<button onClick={() => this.setState({ editingState: 'update' })}>
+						<button className='update-user'onClick={() => this.setState({ editingState: 'update' })}>
 							Update Profile
 						</button>
 					</React.Fragment>
@@ -269,7 +270,7 @@ class UserProfile extends Component {
 							}
 						>
 							{deleteUser => (
-								<button
+								<button className='delete-button'
 									onClick={() => {
 										deleteUser({ variables: { auth0_id } });
 										console.log('userid', auth0_id);
@@ -279,7 +280,7 @@ class UserProfile extends Component {
 								</button>
 							)}
 						</Mutation>
-						<button onClick={() => this.setState({ editingState: false })}>
+						<button className='cancel-button' onClick={() => this.setState({ editingState: false })}>
 							Cancel
 						</button>
 					</React.Fragment>
@@ -287,7 +288,7 @@ class UserProfile extends Component {
 
 				{!editingState && (
 					<React.Fragment>
-						<button onClick={() => this.setState({ editingState: 'add' })}>
+						<button className='addAddress' onClick={() => this.setState({ editingState: 'add' })}>
 							Add Address
 						</button>
 					</React.Fragment>
@@ -329,7 +330,7 @@ class UserProfile extends Component {
 								</div>
 							)}
 						</Mutation>
-						<button onClick={() => this.setState({ editingState: false })}>
+						<button className='cancel-button' onClick={() => this.setState({ editingState: false })}>
 							Cancel
 						</button>
 					</React.Fragment>
@@ -337,7 +338,7 @@ class UserProfile extends Component {
 
 				{!editingState && (
 					<React.Fragment>
-						<button onClick={() => this.setState({ editingState: 'edit' })}>
+						<button className='edit-address'onClick={() => this.setState({ editingState: 'edit' })}>
 							Edit Address
 						</button>
 					</React.Fragment>
@@ -390,7 +391,7 @@ class UserProfile extends Component {
 							}
 						>
 							{deleteAddress => (
-								<button
+								<button className='delete-button'
 									onClick={() => {
 										deleteAddress({ variables: { address_id } });
 									}}
@@ -399,7 +400,7 @@ class UserProfile extends Component {
 								</button>
 							)}
 						</Mutation>
-						<button onClick={() => this.setState({ editingState: false })}>
+						<button className='cancel-button'onClick={() => this.setState({ editingState: false })}>
 							Cancel
 						</button>
 					</React.Fragment>
