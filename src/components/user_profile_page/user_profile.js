@@ -10,6 +10,7 @@ import { Query, Mutation } from 'react-apollo';
 import { connect } from 'react-redux';
 import { setUser } from '../../dux/reducer';
 import './user_profile.scss';
+import Axios from 'axios';
 
 class UserProfile extends Component {
 	state = {
@@ -273,7 +274,11 @@ class UserProfile extends Component {
 								<button className='delete-button'
 									onClick={() => {
 										deleteUser({ variables: { auth0_id } });
-										console.log('userid', auth0_id);
+										Axios.post('/api/logout', (req, res) => {
+											req.session.destroy();
+											res.send('Logged Out Successfully');
+										// console.log('userid', auth0_id);
+										})
 									}}
 								>
 									Delete User

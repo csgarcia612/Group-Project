@@ -4,7 +4,6 @@
 	flex-direction: column;
 	width: 100%;
 	height: calc(100vh - 35px);
-	justify-content: center;
 	align-items: center;
 	.user-info-container{
 		.img {
@@ -35,6 +34,8 @@
 	.addAddress, .edit-address, .update-user, .cancel-button, .delete-button {
 		width: 110px;
 		margin: 2px;
+		overflow: scroll;
+		
 	}
 	.p-tag-container{
 		width: 40vw;
@@ -46,6 +47,8 @@
 		align-items: center;
 		display: flex;
 	}
+
+	
 }
 
 
