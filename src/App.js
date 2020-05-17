@@ -1,34 +1,29 @@
-import React, { Component } from "react";
-import "./App.scss";
-import {Switch, NavLink, Route} from "react-router-dom";
-import {connect} from "react-redux";
-import Homepage from "./components/home_page/home";
-import Event from "./components/event_details_page/event_details";
-import About from "./components/about_page/about";
-import UserProfile from "./components/user_profile_page/user_profile";
-import {setUser} from 
+import React, { Component } from 'react';
+import './App.scss';
+import routes from './routes';
+import Header from './components/header/header';
+import Footer from './components/footer/footer';
 
+const dotenv = require('dotenv');
+dotenv.config();
 
 class App extends Component {
-
-  componentDidMount() {
-    //*** GET USER DATA HERE!!! ***
-  }
-
+	constructor() {
+		super();
+		this.state = {};
+	}
 	render() {
 		return (
-      <div className="App">
-        <div className="headerContainer">
-          <Header />
-        </div>
-        <div className="displayedPageContainer">
-          <Routes />
-        </div>
-        <div className="footerContainer">
-          <Footer />
-        </div>
-      </div>
-    )
+			<div className='App'>
+				<header>
+					<Header />
+				</header>
+				<div className='site-contents-container'>
+					{routes}
+					<Footer />
+				</div>
+			</div>
+		);
 	}
 }
 
